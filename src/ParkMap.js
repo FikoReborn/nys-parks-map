@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoogleApiWrapper, Map } from 'google-maps-react';
+import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import './App.css';
 
 class ParkMap extends Component {
@@ -7,7 +7,7 @@ class ParkMap extends Component {
         locations: [],
         counties: []
     }
-    fetchParks= () => {
+    fetchParks = () => {
         let parks = [];
         let counties = [];
         fetch("https://data.ny.gov/api/views/9uuk-x7vh/rows.json")
@@ -42,17 +42,28 @@ class ParkMap extends Component {
             });
     }
     render() {
+        const { locations, counties } = this.state;
         return (
             <Map
                 className="map"
                 google={this.props.google}
                 zoom={7}
                 initialCenter={{
-                    lat: 41.7004,
-                    lng: -73.9210
+                    lat: 43.0831,
+                    lng: -73.921
                 }}
                 onReady={this.fetchParks}
             >
+                {locations.map(park => (
+                    <Marker
+                        key={park.id}
+                        title={park.title}
+                        position={park.location}
+                        website={park.website}
+                        county={park.county}
+                        animation={window.google.maps.Animation.DROP}
+                    />
+                ))}
 
             </Map>
 

@@ -5,7 +5,8 @@ import './App.css';
 class ParkMap extends Component {
     state = {
         locations: [],
-        counties: []
+        counties: [],
+        foursquareData: {}
     }
     fetchParks = () => {
         let parks = [];
@@ -41,6 +42,24 @@ class ParkMap extends Component {
                 this.setState({ locations: parks });
             });
     }
+    fetchFoursquareData = (marker) => {
+        const lat = marker.position.lat;
+        const lng = marker.position.lng;
+        const markerDetails = {};
+        fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
+            .then(response => response.json())
+            .then(data => {
+                const parkid = data.response.venues[0].id;
+                return fetch(`https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`)
+                    .then(details => details.json())
+                    .then(parkdetails => {
+                        markerDetails.contact = parkdetails.response.venue.contact;
+                        markerDetails.rating = parkdetails.response.venue.rating;
+                        markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
+                        this.setState({foursquareData:markerDetails})
+                    })
+            })
+    }
     render() {
         const { locations, counties } = this.state;
         return (
@@ -62,6 +81,7 @@ class ParkMap extends Component {
                         website={park.website}
                         county={park.county}
                         animation={window.google.maps.Animation.DROP}
+                        onClick={marker => this.fetchFoursquareData(marker)}
                     />
                 ))}
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from "google-maps-react";
 import "font-awesome/css/font-awesome.min.css";
 import { styles } from "./MapStyles";

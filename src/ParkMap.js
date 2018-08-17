@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
+import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
 import './App.css';
 
 class ParkMap extends Component {
     state = {
         locations: [],
         counties: [],
-        foursquareData: {}
+        foursquareData: {},
+        activeMarker: {},
+        markerVisible: false,
+        selectedPlace: {}
     }
     fetchParks = () => {
         let parks = [];
@@ -42,9 +45,9 @@ class ParkMap extends Component {
                 this.setState({ locations: parks });
             });
     }
-    fetchFoursquareData = (marker) => {
-        const lat = marker.position.lat;
-        const lng = marker.position.lng;
+    fetchFoursquareData = (props, marker, e) => {
+        const lat = marker.getPosition().lat();
+        const lng = marker.getPosition().lng();
         const markerDetails = {};
         fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
             .then(response => response.json())
@@ -56,9 +59,17 @@ class ParkMap extends Component {
                         markerDetails.contact = parkdetails.response.venue.contact;
                         markerDetails.rating = parkdetails.response.venue.rating;
                         markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
-                        this.setState({foursquareData:markerDetails})
+                        this.setState({ foursquareData: markerDetails })
                     })
             })
+            .then(this.showInfobox(props, marker, e))
+    }
+    showInfobox = (props, marker, e) => {
+        this.setState({ 
+            selectedPlace: props,
+            activeMarker: marker,
+            markerVisible: true
+         })
     }
     render() {
         const { locations, counties } = this.state;
@@ -81,9 +92,17 @@ class ParkMap extends Component {
                         website={park.website}
                         county={park.county}
                         animation={window.google.maps.Animation.DROP}
-                        onClick={marker => this.fetchFoursquareData(marker)}
-                    />
+                        visibility={false}
+                        onClick={this.fetchFoursquareData} />
+
                 ))}
+                <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.markerVisible}>
+                    <div className="infowindow">
+                        <p>Test</p>
+                    </div>
+                </InfoWindow>
 
             </Map>
 

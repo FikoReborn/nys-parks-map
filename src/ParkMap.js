@@ -62,7 +62,7 @@ class ParkMap extends Component {
                 return fetch(`https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`)
                     .then(details => details.json())
                     .then(parkdetails => {
-                        console.log(parkdetails)
+                        console.log(parkdetails.response.venue.contact)
                         markerDetails.contact = parkdetails.response.venue.contact;
                         markerDetails.contact.twitter && (markerDetails.contact.twitterUrl = `http://www.twitter.com/${markerDetails.contact.twitter}`);
                         markerDetails.contact.facebook && (markerDetails.contact.facebookUrl = `http://www.facebook.com/${markerDetails.contact.twitter}`);
@@ -136,10 +136,12 @@ class ParkMap extends Component {
                         {foursquareData.contact && (
                             foursquareData.contact.formattedPhone && (<p className="phone">{foursquareData.contact.formattedPhone}</p>)   
                         )}
-                        {foursquareData.rating ? (<p className="rating">Rating: {foursquareData.rating} / 10</p>) : (<p className="rating">No Rating</p>)}
+                        {foursquareData.rating ? (<p className="rating"><a href={foursquareData.foursquareUrl} target="_blank"><i className="fa fa-foursquare"></i>Rating: {foursquareData.rating} / 10</a></p>) : (<p className="rating"><i className="fa fa-foursquare"></i>No Rating</p>)}
                         <p className="icons">
                         {foursquareData.contact && (
-                            foursquareData.contact.twitter && (<a href={foursquareData.contact.twitterUrl} target="_blank"><i className="fa fa-twitter-square"></i></a>), 
+                            foursquareData.contact.twitter && (<a href={foursquareData.contact.twitterUrl} target="_blank"><i className="fa fa-twitter-square"></i></a>)
+                        )}
+                        {foursquareData.contact && (
                             foursquareData.contact.facebook && (<a href={foursquareData.contact.facebookUrl} target="_blank"><i className="fa fa-facebook-square"></i></a>)
                         )}
                         {activeMarker.website && (<a href={activeMarker.website} target="_blank"><i className="fa fa-globe"></i></a>)}

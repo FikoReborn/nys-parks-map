@@ -9,3 +9,38 @@
 width: 100%;
 height: 100%;
 }
+
+.address a {
+  color: #ff0000;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.address a:hover {
+  color: #5535a1;
+}
+
+.rating a {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 600;
+}
+
+.fa-foursquare {
+  color: fuchsia;
+  letter-spacing: 5px;
+  font-size: 18px;
+}
+
+.icons {
+  letter-spacing: 12px;
+  font-size: 22px;
+}
+
+.icons a {
+  color: #913c3c;
+}
+
+.icons a:hover {
+  color: #3c6b91;
+}

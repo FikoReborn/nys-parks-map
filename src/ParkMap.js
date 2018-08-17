@@ -9,7 +9,7 @@ class ParkMap extends Component {
         foursquareData: {},
         activeMarker: {},
         markerVisible: false,
-        selectedPlace: {}
+        selectedPark: {}
     }
     fetchParks = () => {
         let parks = [];
@@ -56,6 +56,7 @@ class ParkMap extends Component {
                 return fetch(`https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`)
                     .then(details => details.json())
                     .then(parkdetails => {
+                        console.log(parkdetails)
                         markerDetails.contact = parkdetails.response.venue.contact;
                         markerDetails.rating = parkdetails.response.venue.rating;
                         markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
@@ -66,13 +67,13 @@ class ParkMap extends Component {
     }
     showInfobox = (props, marker, e) => {
         this.setState({ 
-            selectedPlace: props,
+            selectedPark: props,
             activeMarker: marker,
             markerVisible: true
          })
     }
     render() {
-        const { locations, counties } = this.state;
+        const { locations, counties, selectedPark } = this.state;
         return (
             <Map
                 className="map"
@@ -88,6 +89,7 @@ class ParkMap extends Component {
                     <Marker
                         key={park.id}
                         title={park.title}
+                        type={park.type}
                         position={park.location}
                         website={park.website}
                         county={park.county}
@@ -100,7 +102,7 @@ class ParkMap extends Component {
                     marker={this.state.activeMarker}
                     visible={this.state.markerVisible}>
                     <div className="infowindow">
-                        <p>Test</p>
+                        <h3>{selectedPark.title} {selectedPark.type}</h3>
                     </div>
                 </InfoWindow>
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
+import 'font-awesome/css/font-awesome.min.css';
 import './App.css';
 
 class ParkMap extends Component {
@@ -8,8 +9,8 @@ class ParkMap extends Component {
         counties: [],
         foursquareData: {},
         activeMarker: {},
-        markerVisible: false,
-        selectedPark: {}
+        placesData: {},
+        markerVisible: false
     }
     fetchParks = () => {
         let parks = [];
@@ -46,23 +47,11 @@ class ParkMap extends Component {
             })
     }
 
-    getPlaces = (map, marker) => {
-        const {google} = this.props;
-        const geocoder = new google.maps.Geocoder();
-        const service = new google.maps.places.PlacesService(map);
-        geocoder.geocode({ location: marker.position }, (results, geoStatus) => {
-            if (geoStatus === 'OK') {
-                service.getDetails({ placeId:results[0].place_id, fields: ['formatted_address', 'url']}, (places, placeStatus) => {
-                    if (placeStatus === 'OK') {
-                        marker.address = places.formatted_address;
-                        marker.mapsUrl = places.url;
-                    }
-                })
-            }
-        })
-    }
-
     fetchParkData = (props, marker, e) => {
+        this.setState({
+            placesData: {},
+            foursquareData: {},
+        })
         const lat = marker.getPosition().lat();
         const lng = marker.getPosition().lng();
         const markerDetails = {};
@@ -75,13 +64,34 @@ class ParkMap extends Component {
                     .then(parkdetails => {
                         console.log(parkdetails)
                         markerDetails.contact = parkdetails.response.venue.contact;
+                        markerDetails.contact.twitter && (markerDetails.contact.twitterUrl = `http://www.twitter.com/${markerDetails.contact.twitter}`);
+                        markerDetails.contact.facebook && (markerDetails.contact.facebookUrl = `http://www.facebook.com/${markerDetails.contact.twitter}`);
                         markerDetails.rating = parkdetails.response.venue.rating;
                         markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
                         this.setState({ foursquareData: markerDetails })
+                        this.getPlaces(props.map, marker)
                     })
             })
-            .then(this.getPlaces(props.map, marker))
             .then(this.showInfobox(props, marker, e))
+    }
+
+    getPlaces = (map, marker) => {
+        const {google} = this.props;
+        const geocoder = new google.maps.Geocoder();
+        const service = new google.maps.places.PlacesService(map);
+        geocoder.geocode({ location: marker.position }, (results, geoStatus) => {
+            if (geoStatus === 'OK') {
+                service.getDetails({ placeId:results[0].place_id, fields: ['formatted_address', 'url']}, (places, placeStatus) => {
+                    if (placeStatus === 'OK') {
+                        const placeStats = {
+                            address: places.formatted_address,
+                            mapsUrl: places.url
+                        }
+                        this.setState({placesData:placeStats})
+                    }
+                })
+            }
+        })
     }
 
     showInfobox = (props, marker, e) => {
@@ -92,7 +102,7 @@ class ParkMap extends Component {
          })
     }
     render() {
-        const { locations, counties, selectedPark, activeMarker, foursquareData } = this.state;
+        const { locations, counties, selectedPark, activeMarker, foursquareData, placesData } = this.state;
         return (
             <Map
                 className="map"
@@ -122,12 +132,17 @@ class ParkMap extends Component {
                     visible={this.state.markerVisible}>
                     <div className="infowindow">
                         <h3>{activeMarker.title} {activeMarker.type}</h3>
-                        <p className="address"><a href={activeMarker.mapsUrl} target="_blank">{activeMarker.address}</a></p>
-                        {foursquareData.rating ? (<p class="rating">Rating: {foursquareData.rating} / 10</p>) : (<p class="rating">No Rating</p>)}
-                        <p class="icons">
+                        {placesData.address ? (<p className="address"><a href={placesData.mapsUrl} target="_blank">{placesData.address}</a></p>) : (<p className="address">Loading park data...</p>)}
                         {foursquareData.contact && (
-                            (foursquareData.contact.formattedPhone) && (<strong>{foursquareData.contact.formattedPhone}</strong>)
+                            foursquareData.contact.formattedPhone && (<p className="phone">{foursquareData.contact.formattedPhone}</p>)   
                         )}
+                        {foursquareData.rating ? (<p className="rating">Rating: {foursquareData.rating} / 10</p>) : (<p className="rating">No Rating</p>)}
+                        <p className="icons">
+                        {foursquareData.contact && (
+                            foursquareData.contact.twitter && (<a href={foursquareData.contact.twitterUrl} target="_blank"><i className="fa fa-twitter-square"></i></a>), 
+                            foursquareData.contact.facebook && (<a href={foursquareData.contact.facebookUrl} target="_blank"><i className="fa fa-facebook-square"></i></a>)
+                        )}
+                        {activeMarker.website && (<a href={activeMarker.website} target="_blank"><i className="fa fa-globe"></i></a>)}
                         </p>
                     </div>
                 </InfoWindow>

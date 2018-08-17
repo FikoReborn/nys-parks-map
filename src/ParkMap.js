@@ -43,9 +43,26 @@ class ParkMap extends Component {
                 );
                 this.setState({ counties });
                 this.setState({ locations: parks });
-            });
+            })
     }
-    fetchFoursquareData = (props, marker, e) => {
+
+    getPlaces = (map, marker) => {
+        const {google} = this.props;
+        const geocoder = new google.maps.Geocoder();
+        const service = new google.maps.places.PlacesService(map);
+        geocoder.geocode({ location: marker.position }, (results, geoStatus) => {
+            if (geoStatus === 'OK') {
+                service.getDetails({ placeId:results[0].place_id, fields: ['formatted_address', 'url']}, (places, placeStatus) => {
+                    if (placeStatus === 'OK') {
+                        marker.address = places.formatted_address;
+                        marker.mapsUrl = places.url;
+                    }
+                })
+            }
+        })
+    }
+
+    fetchParkData = (props, marker, e) => {
         const lat = marker.getPosition().lat();
         const lng = marker.getPosition().lng();
         const markerDetails = {};
@@ -63,17 +80,19 @@ class ParkMap extends Component {
                         this.setState({ foursquareData: markerDetails })
                     })
             })
+            .then(this.getPlaces(props.map, marker))
             .then(this.showInfobox(props, marker, e))
     }
+
     showInfobox = (props, marker, e) => {
+        console.log(props)
         this.setState({ 
-            selectedPark: props,
             activeMarker: marker,
             markerVisible: true
          })
     }
     render() {
-        const { locations, counties, selectedPark } = this.state;
+        const { locations, counties, selectedPark, activeMarker, foursquareData } = this.state;
         return (
             <Map
                 className="map"
@@ -95,14 +114,21 @@ class ParkMap extends Component {
                         county={park.county}
                         animation={window.google.maps.Animation.DROP}
                         visibility={false}
-                        onClick={this.fetchFoursquareData} />
+                        onClick={this.fetchParkData} />
 
                 ))}
                 <InfoWindow
                     marker={this.state.activeMarker}
                     visible={this.state.markerVisible}>
                     <div className="infowindow">
-                        <h3>{selectedPark.title} {selectedPark.type}</h3>
+                        <h3>{activeMarker.title} {activeMarker.type}</h3>
+                        <p className="address"><a href={activeMarker.mapsUrl} target="_blank">{activeMarker.address}</a></p>
+                        {foursquareData.rating ? (<p class="rating">Rating: {foursquareData.rating} / 10</p>) : (<p class="rating">No Rating</p>)}
+                        <p class="icons">
+                        {foursquareData.contact && (
+                            (foursquareData.contact.formattedPhone) && (<strong>{foursquareData.contact.formattedPhone}</strong>)
+                        )}
+                        </p>
                     </div>
                 </InfoWindow>
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ParkMap from './ParkMap';
+import FilterOptions from './FilterOptions';
 import './App.css';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
 fetchParks = () => {
     let parks = [];
     let counties = [];
+
     fetch("https://data.ny.gov/api/views/9uuk-x7vh/rows.json")
         .then(response => response.json())
         .then(parkdata => {
@@ -44,6 +46,7 @@ fetchParks = () => {
             );
             this.setState({ counties });
             this.setState({ locations: parks });
+
         })
 }
 
@@ -99,9 +102,27 @@ showInfobox = (props, marker, e) => {
      })
 }
 
+filterCounty = (e) => {
+  const locations = this.state.locations;
+  const county = e.target.value;
+  locations.forEach(location => {
+    if (location.county !== county && county !== "All Counties") {
+      location.display = false;
+    } else {
+      location.display = true;
+    }
+  });
+  this.setState({ locations });
+};
+
   render() {
     return (
       <div className="App">
+        <FilterOptions
+          counties={this.state.counties}
+          locations={this.state.locations}
+          filterCounty={this.filterCounty}
+        />
         <ParkMap
           fetchParks={this.fetchParks}
           fetchParkData={this.fetchParkData}

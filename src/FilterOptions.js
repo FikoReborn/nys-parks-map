@@ -19,8 +19,8 @@ const FilterOptions = props => {
           thislocation =>
             thislocation.display && (
               <li key={thislocation.id}>
-                {thislocation.title} {thislocation.type}
-              </li>
+                <a href="#">{thislocation.title} {thislocation.type}</a>
+              </li> 
             )
         )}
       </ul>

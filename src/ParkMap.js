@@ -44,6 +44,7 @@ class ParkMap extends Component {
             lat: 43.0831,
             lng: -73.921
           }}
+          mapTypeControl={false}
           onReady={fetchParks}
         >
           {locations.filter(filteredpark => filteredpark.display).map(park => (

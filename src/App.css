@@ -87,6 +87,11 @@ html {
   color: #ff0000;
 }
 
+.filter-form {
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
 .filter-counties-list {
   background-color: #fffad1;
   border: 2px solid #000;

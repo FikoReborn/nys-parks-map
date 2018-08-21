@@ -5,6 +5,7 @@ const FilterOptions = props => {
   const { counties, locations, filterCounty, selectMarker } = props;
   return (
     <div className="filter-options-container">
+    <div class="filter-form">
       <select
         className="filter-counties-list"
         onChange={filterCounty}
@@ -14,6 +15,7 @@ const FilterOptions = props => {
           <option key={county}>{county}</option>
         ))}
       </select>
+      </div>
       <ul className="list-locations">
         {locations.map(
           thislocation =>

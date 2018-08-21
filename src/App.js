@@ -151,6 +151,7 @@ pullMarkers = pulledmarker => {
           locations={this.state.locations}
           filterCounty={this.filterCounty}
         />
+        <div class="app-title"><h1>New York State Parks Map</h1></div>
         <ParkMap
           findMap={this.findMap}
           pullMarkers={this.pullMarkers}

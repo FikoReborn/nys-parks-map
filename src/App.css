@@ -13,11 +13,24 @@ html {
   flex-wrap: wrap;
 }
 
+.app-title {
+  position: absolute;
+  left: 20%;
+  top: 0;
+  height: 8%;
+  width: 80%;
+  background-color: #3b3b3b;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+
 .map-container {
   position: fixed;
   left: 20%;
+  top: 8%;
   width: 80%;
-  height: 100%;
+  height: 92%;
 }
 
 .map {

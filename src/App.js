@@ -5,12 +5,18 @@ import './App.css';
 
 class App extends Component {
   state = {
+    map: {},
     locations: [],
     counties: [],
+    markers: [],
     foursquareData: {},
     activeMarker: {},
     placesData: {},
     markerVisible: false
+}
+
+findMap = map => {
+    this.setState({map})
 }
 
 fetchParks = () => {
@@ -50,7 +56,10 @@ fetchParks = () => {
         })
 }
 
-fetchParkData = (props, marker, e) => {
+fetchParkData = (props, marker) => {
+    console.log(props);
+    console.log(marker);
+    const map = this.state.map;
     this.setState({
         placesData: {},
         foursquareData: {},
@@ -71,13 +80,14 @@ fetchParkData = (props, marker, e) => {
                     markerDetails.rating = parkdetails.response.venue.rating;
                     markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
                     this.setState({ foursquareData: markerDetails })
-                    this.getPlaces(props.map, marker)
+                    this.getPlaces(marker)
                 })
         })
-        .then(this.showInfobox(props, marker, e))
+        .then(this.showInfobox(marker))
 }
 
-getPlaces = (map, marker) => {
+getPlaces = (marker) => {
+    const map = this.state.map;
     const geocoder = new window.google.maps.Geocoder();
     const service = new window.google.maps.places.PlacesService(map);
     geocoder.geocode({ location: marker.position }, (results, geoStatus) => {
@@ -95,11 +105,18 @@ getPlaces = (map, marker) => {
     })
 }
 
-showInfobox = (props, marker, e) => {
+showInfobox = (marker) => {
     this.setState({ 
         activeMarker: marker,
         markerVisible: true
      })
+}
+
+selectMarker = (e) => {
+    const map = this.state.map;
+    const markerIndex = e.target.id;
+    const markers = this.state.markers;
+    this.fetchParkData(map, markers[markerIndex]);
 }
 
 filterCounty = (e) => {
@@ -115,15 +132,26 @@ filterCounty = (e) => {
   this.setState({ locations });
 };
 
+pullMarkers = pulledmarker => {
+    if (this.state.markers.length === 0) {
+        this.setState(state => ({
+            markers: [...state.markers, pulledmarker.marker]
+        }))
+    }
+};
+
   render() {
     return (
       <div className="App">
         <FilterOptions
+        selectMarker={this.selectMarker}
           counties={this.state.counties}
           locations={this.state.locations}
           filterCounty={this.filterCounty}
         />
         <ParkMap
+          findMap={this.findMap}
+          pullMarkers={this.pullMarkers}
           fetchParks={this.fetchParks}
           fetchParkData={this.fetchParkData}
           getPlaces={this.getPlaces}

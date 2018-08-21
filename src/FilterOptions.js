@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 
 const FilterOptions = props => {
-  const { counties, locations, filterCounty } = props;
+  const { counties, locations, filterCounty, selectMarker } = props;
   return (
     <div className="filter-options-container">
       <select
@@ -19,7 +19,7 @@ const FilterOptions = props => {
           thislocation =>
             thislocation.display && (
               <li key={thislocation.id}>
-                <a href="#">{thislocation.title} {thislocation.type}</a>
+                <button onClick={selectMarker} id={thislocation.id}>{thislocation.title} {thislocation.type}</button>
               </li> 
             )
         )}

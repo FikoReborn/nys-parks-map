@@ -5,7 +5,11 @@ import { styles } from "./MapStyles";
 import "./App.css";
 
 class ParkMap extends Component {
+  componentDidMount = () => {
+    this.props.findMap(this.refs.map.map);
+  }
   componentDidUpdate = () => {
+    console.log(this.refs.map.markers)
     const bounds = new window.google.maps.LatLngBounds();
     const locations = this.props.locations;
     locations
@@ -15,8 +19,10 @@ class ParkMap extends Component {
       });
     this.refs.map.map.fitBounds(bounds);
   };
+
   render() {
     const {
+      pullMarkers,
       locations,
       activeMarker,
       markerVisible,
@@ -42,7 +48,9 @@ class ParkMap extends Component {
         >
           {locations.filter(filteredpark => filteredpark.display).map(park => (
             <Marker
+              ref={pullMarkers}
               key={park.id}
+              id={park.id}
               title={park.title}
               type={park.type}
               position={park.location}

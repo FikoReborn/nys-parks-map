@@ -56,7 +56,6 @@ class ParkMap extends Component {
               position={park.location}
               website={park.website}
               county={park.county}
-              animation={window.google.maps.Animation.DROP}
               visibility={false}
               onClick={fetchParkData}
             />

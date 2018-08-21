@@ -131,6 +131,7 @@ filterCounty = (e) => {
     }
   });
   this.setState({ locations });
+  this.setState({markerVisible: false})
 };
 
 pullMarkers = pulledmarker => {

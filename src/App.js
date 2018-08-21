@@ -64,6 +64,8 @@ fetchParkData = (props, marker) => {
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();
     const markerDetails = {};
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    marker.setAnimation(null);
     fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
         .then(response => response.json())
         .then(data => {

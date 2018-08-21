@@ -19,7 +19,7 @@ const FilterOptions = props => {
           thislocation =>
             thislocation.display && (
               <li key={thislocation.id}>
-                <button onClick={selectMarker} id={thislocation.id}>{thislocation.title} {thislocation.type}</button>
+                <button onClick={selectMarker} id={thislocation.id} class="location-button">{thislocation.title} {thislocation.type}</button>
               </li> 
             )
         )}

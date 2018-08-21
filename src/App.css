@@ -99,3 +99,20 @@ html {
   outline: none;
   color: #000;
 }
+
+.list-locations .location-button {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  color: #fff;
+}
+
+.list-locations .location-button:hover {
+  cursor: pointer;
+  color: rgb(255, 0, 0);
+}
+
+.list-locations .location-button:focus {
+  outline: none;
+  color: rgb(93, 104, 255);
+}

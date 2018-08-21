@@ -8,8 +8,8 @@ class ParkMap extends Component {
   componentDidMount = () => {
     this.props.findMap(this.refs.map.map);
   }
+  
   componentDidUpdate = () => {
-    console.log(this.refs.map.markers)
     const bounds = new window.google.maps.LatLngBounds();
     const locations = this.props.locations;
     locations

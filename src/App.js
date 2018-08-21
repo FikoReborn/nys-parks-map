@@ -57,9 +57,6 @@ fetchParks = () => {
 }
 
 fetchParkData = (props, marker) => {
-    console.log(props);
-    console.log(marker);
-    const map = this.state.map;
     this.setState({
         placesData: {},
         foursquareData: {},
@@ -114,8 +111,10 @@ showInfobox = (marker) => {
 
 selectMarker = (e) => {
     const map = this.state.map;
-    const markerIndex = e.target.id;
+    const markerId = Number(e.target.id);
     const markers = this.state.markers;
+    const locations = this.state.locations;
+    const markerIndex = markers.findIndex(marker => marker.id === markerId);
     this.fetchParkData(map, markers[markerIndex]);
 }
 

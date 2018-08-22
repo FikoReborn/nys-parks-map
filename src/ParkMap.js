@@ -8,7 +8,7 @@ class ParkMap extends Component {
   componentDidMount = () => {
     this.props.findMap(this.refs.map.map);
   }
-  
+
   componentDidUpdate = () => {
     const bounds = new window.google.maps.LatLngBounds();
     const locations = this.props.locations;
@@ -62,10 +62,10 @@ class ParkMap extends Component {
             />
           ))}
           <InfoWindow marker={activeMarker} visible={markerVisible}>
-            <ParkContent 
-                  activeMarker={activeMarker}
-                  foursquareData={foursquareData}
-                  placesData={placesData}
+            <ParkContent
+              activeMarker={activeMarker}
+              foursquareData={foursquareData}
+              placesData={placesData}
             />
           </InfoWindow>
         </Map>

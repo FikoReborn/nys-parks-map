@@ -6,6 +6,8 @@ import './App.css';
 class App extends Component {
   state = {
     error: false,
+    placesError: false,
+    FSError: false,
     map: {},
     locations: [],
     counties: [],
@@ -85,6 +87,12 @@ fetchParkData = (props, marker) => {
                     this.setState({ foursquareData: markerDetails })
                     this.getPlaces(marker)
                 })
+                .catch(err => {
+                    this.setState({FSError: true})
+                })
+        })
+        .catch(err => {
+            this.setState({FSError: true})
         })
         .then(this.showInfobox(marker))
 }
@@ -101,9 +109,17 @@ getPlaces = (marker) => {
                         address: places.formatted_address,
                         mapsUrl: places.url
                     }
-                    this.setState({placesData:placeStats})
+                    this.setState({placesData:placeStats});
+                } else {
+                    const placeStats = {
+                        address: 'Address could not be loaded',
+                        mapsUrl: null
+                    }
+                    this.setState({placesData:placeStats});
                 }
             })
+        } else {
+            this.setState({placesError: true});
         }
     })
 }

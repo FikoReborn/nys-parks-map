@@ -115,7 +115,6 @@ selectMarker = (e) => {
     const map = this.state.map;
     const markerId = Number(e.target.id);
     const markers = this.state.markers;
-    const locations = this.state.locations;
     const markerIndex = markers.findIndex(marker => marker.id === markerId);
     this.fetchParkData(map, markers[markerIndex]);
 }
@@ -145,13 +144,13 @@ pullMarkers = pulledmarker => {
   render() {
     return (
       <div className="App">
+      <div className="app-title"><h1>New York State Parks Map</h1></div>
         <FilterOptions
         selectMarker={this.selectMarker}
           counties={this.state.counties}
           locations={this.state.locations}
           filterCounty={this.filterCounty}
         />
-        <div class="app-title"><h1>New York State Parks Map</h1></div>
         <ParkMap
           findMap={this.findMap}
           pullMarkers={this.pullMarkers}

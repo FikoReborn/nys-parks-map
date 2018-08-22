@@ -5,7 +5,7 @@ const FilterOptions = props => {
   const { counties, locations, filterCounty, selectMarker } = props;
   return (
     <div className="filter-options-container">
-    <div class="filter-form">
+    <div className="filter-form">
       <select
         className="filter-counties-list"
         onChange={filterCounty}
@@ -21,7 +21,7 @@ const FilterOptions = props => {
           thislocation =>
             thislocation.display && (
               <li key={thislocation.id}>
-                <button onClick={selectMarker} id={thislocation.id} class="location-button">{thislocation.title} {thislocation.type}</button>
+                <button onClick={selectMarker} id={thislocation.id} className="location-button">{thislocation.title} {thislocation.type}</button>
               </li> 
             )
         )}

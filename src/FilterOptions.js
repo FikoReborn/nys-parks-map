@@ -8,7 +8,8 @@ class FilterOptions extends Component {
     document.getElementsByClassName('list-locations')[0].classList.toggle("show");
   }
   render() {
-  const { counties, locations, filterCounty, selectMarker } = this.props;
+    console.log(this.props.error)
+  const { counties, locations, filterCounty, selectMarker, error } = this.props;
   return (
     <div className="filter-options-container">
     <div className="filter-form">
@@ -25,7 +26,8 @@ class FilterOptions extends Component {
       <span className="mobile-menu" onClick={this.menuOpen}>
             <i className="fa fa-2x fa-bars menu-icon"></i>
         </span>
-      <ul className="list-locations">
+      {!error ? (
+        <ul className="list-locations">
         {locations.map(
           thislocation =>
             thislocation.display && (
@@ -35,6 +37,9 @@ class FilterOptions extends Component {
             )
         )}
       </ul>
+      ) : (
+        <p>Sorry, parks data could not be loaded.</p>
+      )}
     </div>
   );
 };

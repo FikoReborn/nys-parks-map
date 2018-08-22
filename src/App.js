@@ -5,6 +5,7 @@ import './App.css';
 
 class App extends Component {
   state = {
+    error: false,
     map: {},
     locations: [],
     counties: [],
@@ -52,7 +53,10 @@ fetchParks = () => {
             );
             this.setState({ counties });
             this.setState({ locations: parks });
-
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({error: true})
         })
 }
 
@@ -150,6 +154,7 @@ pullMarkers = pulledmarker => {
       <div className="App">
       <div className="app-title"><h1>New York State Parks Map</h1></div>
         <FilterOptions
+        error={this.state.error}
         selectMarker={this.selectMarker}
           counties={this.state.counties}
           locations={this.state.locations}

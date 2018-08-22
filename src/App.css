@@ -112,7 +112,6 @@ body {
 
 .filter-form {
   padding-left: 15px;
-  padding-top: 10px;
 }
 
 .filter-counties-list {
@@ -144,4 +143,43 @@ body {
 .list-locations .location-button:focus {
   outline: none;
   color: rgb(93, 104, 255);
+}
+
+.menu-icon {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  visibility: hidden;
+}
+
+.filter-options-container.extend {
+  transform: translateX(0);
+}
+
+.list-locations.show {
+  visibility: visible;
+}
+
+@media screen and (max-width: 660px) {
+  .menu-icon {
+    visibility: visible;
+  }
+
+  .filter-options-container {
+    width: 180px;
+    transform: translateX(-80%);
+    z-index: 998;
+  }
+
+  .map-container {
+    width: 100%;
+  }
+
+  .app-title {
+    font-size: 0.5em;
+  }
+
+  .list-locations {
+    visibility: hidden;
+  }
 }

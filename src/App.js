@@ -117,6 +117,10 @@ selectMarker = (e) => {
     const markers = this.state.markers;
     const markerIndex = markers.findIndex(marker => marker.id === markerId);
     this.fetchParkData(map, markers[markerIndex]);
+    if (document.getElementsByClassName('filter-options-container')[0].classList.contains('extend')) {
+        document.getElementsByClassName('filter-options-container')[0].classList.toggle('extend');
+        document.getElementsByClassName('list-locations')[0].classList.toggle('show');
+    }
 }
 
 filterCounty = (e) => {

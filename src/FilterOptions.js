@@ -1,8 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
+import "font-awesome/css/font-awesome.min.css";
 import "./App.css";
 
-const FilterOptions = props => {
-  const { counties, locations, filterCounty, selectMarker } = props;
+class FilterOptions extends Component {
+  menuOpen = () => {
+    document.getElementsByClassName('filter-options-container')[0].classList.toggle("extend");
+    document.getElementsByClassName('list-locations')[0].classList.toggle("show");
+  }
+  render() {
+  const { counties, locations, filterCounty, selectMarker } = this.props;
   return (
     <div className="filter-options-container">
     <div className="filter-form">
@@ -16,6 +22,9 @@ const FilterOptions = props => {
         ))}
       </select>
       </div>
+      <span className="mobile-menu" onClick={this.menuOpen}>
+            <i className="fa fa-2x fa-bars menu-icon"></i>
+        </span>
       <ul className="list-locations">
         {locations.map(
           thislocation =>
@@ -29,5 +38,6 @@ const FilterOptions = props => {
     </div>
   );
 };
+}
 
 export default FilterOptions;

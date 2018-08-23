@@ -60,7 +60,9 @@ class App extends Component {
   fetchParkData = (props, marker) => {
     this.setState({
       placesData: {},
-      foursquareData: {}
+      foursquareData: {},
+      markerVisible: false,
+      activeMarker: {}
     });
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();

@@ -152,6 +152,12 @@ body {
   visibility: hidden;
 }
 
+.foursquare-logo {
+  position: relative;
+  left: -10px;
+  width: 150px;
+}
+
 .filter-options-container.extend {
   transform: translateX(0);
 }

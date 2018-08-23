@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "font-awesome/css/font-awesome.min.css";
+import Foursquare from './img/Foursquare.png';
 import "./App.css";
 
 class ParkContent extends Component {
@@ -53,6 +54,7 @@ class ParkContent extends Component {
             </a>
           )}
         </p>
+        <a href="http://www.foursquare.com"><img src={Foursquare} className='foursquare-logo' alt='Powered by Foursquare' /></a>
       </div>
     );
   }

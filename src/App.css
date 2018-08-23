@@ -160,6 +160,10 @@ body {
   visibility: visible;
 }
 
+.infowindow {
+  max-width: 280px;
+}
+
 @media screen and (max-width: 660px) {
   .menu-icon {
     visibility: visible;

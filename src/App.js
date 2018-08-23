@@ -23,7 +23,6 @@ class App extends Component {
   fetchParks = () => {
     let parks = [];
     let counties = [];
-
     fetch("https://data.ny.gov/api/views/9uuk-x7vh/rows.json")
       .then(response => response.json())
       .then(parkdata => {
@@ -96,6 +95,7 @@ class App extends Component {
                   formattedPhone: "Error loading Foursquare venue details"
                 }
               };
+              this.setState({ foursquareData: errorMessage })
           });
       })
       .catch(error => {
@@ -107,11 +107,13 @@ class App extends Component {
         };
         this.setState({ foursquareData: errorMessage });
       })
-      .then(this.showInfobox(marker));
+      .then(this.setState({
+        activeMarker: marker,
+        markerVisible: true
+      }));
   };
 
   getPlaces = (marker, lat, lng) => {
-    const map = this.state.map;
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: marker.position }, (results, status) => {
       if (status === "OK") {
@@ -128,13 +130,6 @@ class App extends Component {
         };
         this.setState({ placesData: placeStats });
       }
-    });
-  };
-
-  showInfobox = marker => {
-    this.setState({
-      activeMarker: marker,
-      markerVisible: true
     });
   };
 
@@ -156,8 +151,10 @@ class App extends Component {
         location.display = true;
       }
     });
-    this.setState({ locations });
-    this.setState({ markerVisible: false });
+    this.setState({ 
+        locations,
+        markerVisible: false
+     });
   };
 
   pullMarkers = pulledmarker => {

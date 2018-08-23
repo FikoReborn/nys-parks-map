@@ -86,10 +86,16 @@ class App extends Component {
             this.setState({ foursquareData: markerDetails });
           })
           .catch(error => {
-            console.log(error);
+            console.log('Unable to load Foursquare venue details: ' + error);
+            const errorMessage = {
+                contact: {
+                  formattedPhone: "Error loading Foursquare venue details"
+                }
+              };
           });
       })
       .catch(error => {
+        console.log('Unable to fetch Foursquare Data: ' + error);
         const errorMessage = {
           contact: {
             formattedPhone: "Error loading Foursquare Data"
@@ -107,12 +113,11 @@ class App extends Component {
       if (status === "OK") {
         const placeStats = {
           address: results[0].formatted_address,
-          mapsUrl: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${
-            results[0].place_id
-          }`
+          mapsUrl: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${results[0].place_id}`
         };
         this.setState({ placesData: placeStats });
       } else {
+        console.log('Unable to load data from Google Places: ' + status)
         const placeStats = {
           address: "Address data could not be loaded",
           mapsUrl: null
@@ -136,16 +141,10 @@ class App extends Component {
     const markerIndex = markers.findIndex(marker => marker.id === markerId);
     this.fetchParkData(map, markers[markerIndex]);
     if (
-      document
-        .getElementsByClassName("filter-options-container")[0]
-        .classList.contains("extend")
+      document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")
     ) {
-      document
-        .getElementsByClassName("filter-options-container")[0]
-        .classList.toggle("extend");
-      document
-        .getElementsByClassName("list-locations")[0]
-        .classList.toggle("show");
+      document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
+      document.getElementsByClassName("list-locations")[0].classList.toggle("show");
     }
   };
 

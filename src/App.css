@@ -158,6 +158,29 @@ body {
   width: 150px;
 }
 
+.parkdata-text {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  color: white;
+  margin: 0;
+  letter-spacing: initial;
+  text-transform: none;
+  float: right;
+  background-color: black;
+  border-bottom-left-radius: 10px;
+  padding-left: 10px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-weight: 600;
+}
+
+.parkdata-text a {
+  color: #c9c8c8;
+  text-decoration: none;
+}
+
 .filter-options-container.extend {
   transform: translateX(0);
 }

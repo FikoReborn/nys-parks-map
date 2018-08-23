@@ -19,16 +19,21 @@ class ParkContent extends Component {
         ) : (
           <p className="address">Loading address data...</p>
         )}
+        {Object.keys(foursquareData).length === 0 && (
+          <p>Loading Foursquare data...</p>
+        )}
         {foursquareData.contact &&
           (foursquareData.contact.formattedPhone && (
             <p className="phone">{foursquareData.contact.formattedPhone}</p>
           ))}
+        {foursquareData.rating && (
           <p className="rating">
             <a href={foursquareData.foursquareUrl} target="_blank">
               <i className="fa fa-foursquare" />
               {foursquareData.rating}
             </a>
           </p>
+        )}
         <p className="icons">
           {foursquareData.contact &&
             (foursquareData.contact.twitter && (

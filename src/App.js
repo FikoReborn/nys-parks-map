@@ -6,8 +6,6 @@ import './App.css';
 class App extends Component {
     state = {
         error: false,
-        placesError: false,
-        FSError: false,
         map: {},
         locations: [],
         counties: [],
@@ -57,8 +55,8 @@ class App extends Component {
                 this.setState({ locations: parks });
             })
             .catch(error => {
-                console.log(error)
-                this.setState({ error: true })
+                console.log(error);
+                this.setState({ error: true });
             })
     }
 
@@ -72,7 +70,7 @@ class App extends Component {
         const markerDetails = {};
         marker.setAnimation(window.google.maps.Animation.BOUNCE);
         marker.setAnimation(null);
-        this.getPlaces(marker)
+        this.getPlaces(marker, lat, lng)
         fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
             .then(response => response.json())
             .then(data => {
@@ -87,45 +85,38 @@ class App extends Component {
                         markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
                         this.setState({ foursquareData: markerDetails })
                     })
-                    .catch(err => {
-                        this.setState({ FSError: true })
+                    .catch(error => {
+                        console.log(error)
+                        
                     })
             })
-            .catch(err => {
-                const errorInfo = {
-                    foursquareUrl: null,
+            .catch(error => {
+                const errorMessage = {
                     contact: {
                         formattedPhone: 'Error loading Foursquare Data'
                     }
                 }
-                this.setState({foursquareData:errorInfo});
+                this.setState({foursquareData:errorMessage});
             })
             .then(this.showInfobox(marker))
     }
 
-    getPlaces = (marker) => {
+    getPlaces = (marker, lat, lng) => {
         const map = this.state.map;
         const geocoder = new window.google.maps.Geocoder();
-        const service = new window.google.maps.places.PlacesService(map);
-        geocoder.geocode({ location: marker.position }, (results, geoStatus) => {
-            if (geoStatus === 'OK') {
-                service.getDetails({ placeId: results[0].place_id, fields: ['formatted_address', 'url'] }, (places, placeStatus) => {
-                    if (placeStatus === 'OK') {
-                        const placeStats = {
-                            address: places.formatted_address,
-                            mapsUrl: places.url
-                        }
-                        this.setState({ placesData: placeStats });
-                    } else {
-                        const placeStats = {
-                            address: 'Address could not be loaded',
-                            mapsUrl: null
-                        }
-                        this.setState({ placesData: placeStats });
-                    }
-                })
+        geocoder.geocode({ location: marker.position }, (results, status) => {
+            if (status === 'OK') {
+                const placeStats = {
+                    address: results[0].formatted_address,
+                    mapsUrl: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&destination_place_id=${results[0].place_id}`
+                }
+                this.setState({placesData: placeStats})
             } else {
-                this.setState({ placesError: true });
+                const placeStats = {
+                    address: 'Address data could not be loaded',
+                    mapsUrl: null
+                }
+                this.setState({placesData: placeStats})
             }
         })
     }

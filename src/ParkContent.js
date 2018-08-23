@@ -21,7 +21,7 @@ class ParkContent extends Component {
                         </a>
                     </p>
                 ) : (
-                        <p className="address">Loading park data...</p>
+                        <p className="address">Loading address data...</p>
                     )}
                 {foursquareData.contact &&
                     (foursquareData.contact.formattedPhone && (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ParkContent from './ParkContent';
+import ParkContent from "./ParkContent";
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from "google-maps-react";
 import { styles } from "./MapStyles";
 import "./App.css";
@@ -7,7 +7,7 @@ import "./App.css";
 class ParkMap extends Component {
   componentDidMount = () => {
     this.props.findMap(this.refs.map.map);
-  }
+  };
 
   componentDidUpdate = () => {
     const bounds = new window.google.maps.LatLngBounds();

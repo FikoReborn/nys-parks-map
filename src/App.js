@@ -107,10 +107,13 @@ class App extends Component {
         };
         this.setState({ foursquareData: errorMessage });
       })
-      .then(this.setState({
-        activeMarker: marker,
-        markerVisible: true
-      }));
+      .then(() => {
+        this.state.map.setCenter(marker.getPosition());
+        this.setState({
+            activeMarker: marker,
+            markerVisible: true
+        })
+      });
   };
 
   getPlaces = (marker, lat, lng) => {

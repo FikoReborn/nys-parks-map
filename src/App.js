@@ -170,6 +170,11 @@ class App extends Component {
     }
   };
 
+  menuOpen = () => {
+    document.getElementsByClassName('filter-options-container')[0].classList.toggle("extend");
+    document.getElementsByClassName('list-locations')[0].classList.toggle("show");
+  }
+
   render() {
     return (
       <div className="App">
@@ -177,6 +182,7 @@ class App extends Component {
           <h1>New York State Parks Map</h1>
         </div>
         <FilterOptions
+          menuOpen={this.menuOpen}
           error={this.state.error}
           selectMarker={this.selectMarker}
           counties={this.state.counties}

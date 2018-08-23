@@ -69,28 +69,20 @@ class App extends Component {
     marker.setAnimation(window.google.maps.Animation.BOUNCE);
     marker.setAnimation(null);
     this.getPlaces(marker, lat, lng);
-    fetch(
-      `https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`
-    )
+    fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
       .then(response => response.json())
       .then(data => {
         const parkid = data.response.venues[0].id;
-        return fetch(
-          `https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`
-        )
+        return fetch(`https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`)
           .then(details => details.json())
           .then(parkdetails => {
-            markerDetails.contact = parkdetails.response.venue.contact;
-            markerDetails.contact.twitter &&
-              (markerDetails.contact.twitterUrl = `http://www.twitter.com/${
-                markerDetails.contact.twitter
-              }`);
-            markerDetails.contact.facebook &&
-              (markerDetails.contact.facebookUrl = `http://www.facebook.com/${
-                markerDetails.contact.twitter
-              }`);
-            markerDetails.rating = parkdetails.response.venue.rating;
-            markerDetails.foursquareUrl = parkdetails.response.venue.shortUrl;
+            const venue = parkdetails.response.venue;
+            markerDetails.contact = venue.contact;
+            markerDetails.contact.twitter && (markerDetails.contact.twitterUrl = `http://www.twitter.com/${markerDetails.contact.twitter}`);
+            markerDetails.contact.facebook && (markerDetails.contact.facebookUrl = `http://www.facebook.com/${markerDetails.contact.twitter}`);
+            markerDetails.foursquareUrl = venue.shortUrl;
+            if (venue.rating) markerDetails.rating = 'Rating: ' + venue.rating + ' / 10';
+            else markerDetails.rating = 'No Rating';
             this.setState({ foursquareData: markerDetails });
           })
           .catch(error => {

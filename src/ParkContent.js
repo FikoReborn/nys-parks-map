@@ -23,19 +23,12 @@ class ParkContent extends Component {
           (foursquareData.contact.formattedPhone && (
             <p className="phone">{foursquareData.contact.formattedPhone}</p>
           ))}
-        {foursquareData.rating ? (
           <p className="rating">
             <a href={foursquareData.foursquareUrl} target="_blank">
               <i className="fa fa-foursquare" />
-              Rating: {foursquareData.rating} / 10
+              {foursquareData.rating}
             </a>
           </p>
-        ) : (
-          <p className="rating">
-            <i className="fa fa-foursquare" />
-            No Rating
-          </p>
-        )}
         <p className="icons">
           {foursquareData.contact &&
             (foursquareData.contact.twitter && (

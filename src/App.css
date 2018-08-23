@@ -162,7 +162,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 998;
   color: white;
   margin: 0;
   letter-spacing: initial;

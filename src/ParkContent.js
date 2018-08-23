@@ -3,9 +3,8 @@ import "font-awesome/css/font-awesome.min.css";
 import Foursquare from './img/Foursquare.png';
 import "./App.css";
 
-class ParkContent extends Component {
-  render() {
-    const { activeMarker, foursquareData, placesData } = this.props;
+function ParkContent(props) {
+    const { activeMarker, foursquareData, placesData } = props;
     return (
       <div className="infowindow">
         <h3>
@@ -58,6 +57,5 @@ class ParkContent extends Component {
       </div>
     );
   }
-}
 
 export default ParkContent;

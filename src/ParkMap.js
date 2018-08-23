@@ -36,6 +36,7 @@ class ParkMap extends Component {
       <div className="map-container">
       <p className="parkdata-text">Locations from: <a href="https://data.ny.gov/" target="_blank">Open NY</a> </p>
         <Map
+          role="application"
           ref="map"
           className="map"
           styles={styles}

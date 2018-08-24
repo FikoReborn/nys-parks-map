@@ -9,17 +9,6 @@ class ParkMap extends Component {
     this.props.findMap(this.refs.map.map);
   };
 
-  componentDidUpdate = () => {
-    const bounds = new window.google.maps.LatLngBounds();
-    const locations = this.props.locations;
-    locations
-      .filter(filteredlocations => filteredlocations.display)
-      .forEach(location => {
-        bounds.extend(location.location);
-      });
-    this.refs.map.map.fitBounds(bounds);
-  };
-
   render() {
     const {
       stopAnimation,
@@ -35,7 +24,7 @@ class ParkMap extends Component {
 
     return (
       <div className="map-container">
-      <p className="parkdata-text">Locations from: <a href="https://data.ny.gov/" target="_blank">Open NY</a> </p>
+      <p className="parkdata-text">Locations from: <a href="https://data.ny.gov/" target="_blank" rel="noopener noreferrer">Open NY</a> </p>
         <Map
           role="application"
           ref="map"

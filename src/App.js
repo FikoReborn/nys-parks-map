@@ -16,8 +16,16 @@ class App extends Component {
     markerVisible: false
   };
 
-  componentDidUpdate = () => {
-    console.log(this.refs)
+  fixMapBounds = () => {
+    const bounds = new window.google.maps.LatLngBounds();
+    const locations = this.state.locations;
+    const map = this.state.map;
+    locations
+      .filter(filteredlocations => filteredlocations.display)
+      .forEach(location => {
+        bounds.extend(location.location);
+      });
+    map.fitBounds(bounds);
   }
 
   findMap = map => {
@@ -48,6 +56,7 @@ class App extends Component {
         parkdata.meta.view.columns[11].cachedContents.top.forEach(county => counties.push(county.item));
         this.setState({ counties });
         this.setState({ locations: parks });
+        this.fixMapBounds();
       })
       .catch(error => {
         console.log(error);
@@ -166,6 +175,7 @@ class App extends Component {
         locations,
         markerVisible: false
      });
+     this.fixMapBounds();
   };
 
   pullMarkers = pulledmarker => {
@@ -192,6 +202,7 @@ class App extends Component {
           filterCounty={this.filterCounty}
         />
         <ParkMap
+          fixMapBounds={this.fixMapBounds}
           findMap={this.findMap}
           fetchParkData={this.fetchParkData}
           fetchParks={this.fetchParks}

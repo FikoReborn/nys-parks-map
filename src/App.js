@@ -66,7 +66,7 @@ class App extends Component {
 
   stopAnimation = () => {
     const prevMarker = this.state.activeMarker;
-    (Object.keys(prevMarker).length !== 0) && (prevMarker.setAnimation(null));
+    (Object.keys(prevMarker).length !== 0) && (prevMarker.setAnimation(-1));
   }
 
   closeMobileMenu = () => {
@@ -77,6 +77,7 @@ class App extends Component {
   }
 
   fetchParkData = (props, marker) => {
+    if (marker === this.state.activeMarker) return;
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();
     this.stopAnimation();
@@ -165,6 +166,7 @@ class App extends Component {
     const county = e.target.value;
     this.stopAnimation();
     locations.forEach(location => {
+      location.display = false;
       if (location.county !== county && county !== "All Counties") {
         location.display = false;
       } else {
@@ -194,6 +196,7 @@ class App extends Component {
           <h1>New York State Parks Map</h1>
         </div>
         <FilterOptions
+          stopAnimation={this.stopAnimation}
           markers={this.state.markers}
           error={this.state.error}
           counties={this.state.counties}

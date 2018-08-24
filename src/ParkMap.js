@@ -35,6 +35,8 @@ class ParkMap extends Component {
         >
           {locations.filter(filteredpark => filteredpark.display).map(park => (
             <Marker
+            icon={"http://maps.google.com/mapfiles/ms/micons/tree.png"}
+            animation={window.google.maps.Animation.DROP}
               ref={pullMarkers}
               key={park.id}
               id={park.id}
@@ -47,7 +49,7 @@ class ParkMap extends Component {
               onClick={fetchParkData}
             />
           ))}
-          <InfoWindow marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
+          <InfoWindow role="dialog" marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
             <ParkContent
               activeMarker={activeMarker}
               foursquareData={foursquareData}

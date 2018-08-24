@@ -57,7 +57,14 @@ class App extends Component {
       });
   };
 
+  stopAnimation = () => {
+    const prevMarker = this.state.activeMarker;
+    (Object.keys(prevMarker).length !== 0) && (prevMarker.setAnimation(null));
+  }
+
   fetchParkData = (props, marker) => {
+    this.stopAnimation();
+    marker.setAnimation(window.google.maps.Animation.BOUNCE);
     this.setState({
       placesData: {},
       foursquareData: {},
@@ -67,8 +74,6 @@ class App extends Component {
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();
     const markerDetails = {};
-    marker.setAnimation(window.google.maps.Animation.BOUNCE);
-    marker.setAnimation(null);
     if (document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")) {
         document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
         document.getElementsByClassName("list-locations")[0].classList.toggle("show");
@@ -149,6 +154,7 @@ class App extends Component {
   filterCounty = e => {
     const locations = this.state.locations;
     const county = e.target.value;
+    this.stopAnimation();
     locations.forEach(location => {
       if (location.county !== county && county !== "All Counties") {
         location.display = false;

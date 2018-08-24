@@ -39,13 +39,7 @@ class ParkMap extends Component {
           role="application"
           ref="map"
           className="map"
-          styles={styles}
           google={this.props.google}
-          zoom={7}
-          initialCenter={{
-            lat: 43.0831,
-            lng: -73.921
-          }}
           mapTypeControl={false}
           onReady={fetchParks}
         >

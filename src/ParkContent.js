@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "font-awesome/css/font-awesome.min.css";
 import Foursquare from './img/Foursquare.png';
 import "./App.css";

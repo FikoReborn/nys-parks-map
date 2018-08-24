@@ -16,6 +16,10 @@ class App extends Component {
     markerVisible: false
   };
 
+  componentDidUpdate = () => {
+    console.log(this.refs)
+  }
+
   findMap = map => {
     this.setState({ map });
   };
@@ -38,16 +42,10 @@ class App extends Component {
               lng: Number(parkinfo[20])
             }
           };
-          if (parkinfo[9] !== "Other") {
-            park.type = parkinfo[9];
-          } else {
-            park.type = "";
-          }
+          (parkinfo[9] !== "Other") ? (park.type = parkinfo[9]) : (park.type = "");
           parks.push(park);
         });
-        parkdata.meta.view.columns[11].cachedContents.top.forEach(county => {
-          counties.push(county.item);
-        });
+        parkdata.meta.view.columns[11].cachedContents.top.forEach(county => counties.push(county.item));
         this.setState({ counties });
         this.setState({ locations: parks });
       })
@@ -63,6 +61,8 @@ class App extends Component {
   }
 
   fetchParkData = (props, marker) => {
+    const lat = marker.getPosition().lat();
+    const lng = marker.getPosition().lng();
     this.stopAnimation();
     marker.setAnimation(window.google.maps.Animation.BOUNCE);
     this.setState({
@@ -71,18 +71,19 @@ class App extends Component {
       markerVisible: false,
       activeMarker: {}
     });
-    const lat = marker.getPosition().lat();
-    const lng = marker.getPosition().lng();
     const markerDetails = {};
+    // If mobile menu is open, close it
     if (document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")) {
         document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
         document.getElementsByClassName("list-locations")[0].classList.toggle("show");
       }
     this.getPlaces(marker, lat, lng);
+    // Fetch Foursquare Data
     fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
       .then(response => response.json())
       .then(data => {
         const parkid = data.response.venues[0].id;
+        // Fetch Foursquare venue details and set Foursquare state
         return fetch(`https://api.foursquare.com/v2/venues/${parkid}?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814`)
           .then(details => details.json())
           .then(parkdetails => {
@@ -124,6 +125,7 @@ class App extends Component {
   };
 
   getPlaces = (marker, lat, lng) => {
+    // Get address data from Geocoder and update placesData state
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: marker.position }, (results, status) => {
       if (status === "OK") {
@@ -143,15 +145,8 @@ class App extends Component {
     });
   };
 
-  selectMarker = e => {
-    const map = this.state.map;
-    const markerId = Number(e.target.id);
-    const markers = this.state.markers;
-    const markerIndex = markers.findIndex(marker => marker.id === markerId);
-    this.fetchParkData(map, markers[markerIndex]);
-  };
-
   filterCounty = e => {
+    // Filter location list items by county
     const locations = this.state.locations;
     const county = e.target.value;
     this.stopAnimation();
@@ -169,17 +164,13 @@ class App extends Component {
   };
 
   pullMarkers = pulledmarker => {
+    // Update markers state with currently rendered markers
     if (this.state.markers.length === 0) {
       this.setState(state => ({
         markers: [...state.markers, pulledmarker.marker]
       }));
     }
   };
-
-  menuOpen = () => {
-    document.getElementsByClassName('filter-options-container')[0].classList.toggle("extend");
-    document.getElementsByClassName('list-locations')[0].classList.toggle("show");
-  }
 
   render() {
     return (
@@ -188,20 +179,20 @@ class App extends Component {
           <h1>New York State Parks Map</h1>
         </div>
         <FilterOptions
-          menuOpen={this.menuOpen}
+          markers={this.state.markers}
           error={this.state.error}
-          selectMarker={this.selectMarker}
           counties={this.state.counties}
           locations={this.state.locations}
+          fetchParkData={this.fetchParkData}
           filterCounty={this.filterCounty}
         />
         <ParkMap
           findMap={this.findMap}
-          pullMarkers={this.pullMarkers}
-          fetchParks={this.fetchParks}
           fetchParkData={this.fetchParkData}
+          fetchParks={this.fetchParks}
           getPlaces={this.getPlaces}
-          showInfobox={this.showInfobox}
+          stopAnimation={this.stopAnimation}
+          pullMarkers={this.pullMarkers}
           locations={this.state.locations}
           foursquareData={this.state.foursquareData}
           activeMarker={this.state.activeMarker}

@@ -22,6 +22,7 @@ class ParkMap extends Component {
 
   render() {
     const {
+      stopAnimation,
       pullMarkers,
       locations,
       activeMarker,
@@ -57,7 +58,7 @@ class ParkMap extends Component {
               onClick={fetchParkData}
             />
           ))}
-          <InfoWindow marker={activeMarker} visible={markerVisible}>
+          <InfoWindow marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
             <ParkContent
               activeMarker={activeMarker}
               foursquareData={foursquareData}

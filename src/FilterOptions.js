@@ -1,9 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
 import "font-awesome/css/font-awesome.min.css";
 import "./App.css";
 
-function FilterOptions(props) {
-    const { counties, locations, filterCounty, selectMarker, error, menuOpen } = props;
+class FilterOptions extends Component {
+  selectMarker = e => {
+    // Select Marker after listitem is clicked. 
+    const map = this.props.map;
+    const markerId = Number(e.target.id);
+    const markers = this.props.markers;
+    const markerIndex = markers.findIndex(marker => marker.id === markerId);
+    this.props.fetchParkData(map, markers[markerIndex]);
+  };
+
+  menuOpen = () => {
+    document.getElementsByClassName('filter-options-container')[0].classList.toggle("extend");
+    document.getElementsByClassName('list-locations')[0].classList.toggle("show");
+  }
+
+  render() {
+    const { counties, locations, filterCounty, error } = this.props;
     return (
       <div className="filter-options-container">
         <div className="filter-form">
@@ -17,7 +32,7 @@ function FilterOptions(props) {
             ))}
           </select>
         </div>
-        <span className="mobile-menu" onClick={menuOpen}>
+        <span className="mobile-menu" onClick={this.menuOpen}>
           <i className="fa fa-2x fa-bars menu-icon"></i>
         </span>
         {!error ? (
@@ -26,7 +41,7 @@ function FilterOptions(props) {
               thislocation =>
                 thislocation.display && (
                   <li key={thislocation.id}>
-                    <button onClick={selectMarker} id={thislocation.id} className="location-button">{thislocation.title} {thislocation.type}</button>
+                    <button onClick={this.selectMarker} id={thislocation.id} className="location-button">{thislocation.title} {thislocation.type}</button>
                   </li>
                 )
             )}
@@ -37,5 +52,6 @@ function FilterOptions(props) {
       </div>
     );
   };
+}
 
 export default FilterOptions;

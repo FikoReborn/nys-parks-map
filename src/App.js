@@ -60,6 +60,13 @@ class App extends Component {
     (Object.keys(prevMarker).length !== 0) && (prevMarker.setAnimation(null));
   }
 
+  closeMobileMenu = () => {
+    if (document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")) {
+      document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
+      document.getElementsByClassName("list-locations")[0].classList.toggle("show");
+    }
+  }
+
   fetchParkData = (props, marker) => {
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();
@@ -73,10 +80,7 @@ class App extends Component {
     });
     const markerDetails = {};
     // If mobile menu is open, close it
-    if (document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")) {
-        document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
-        document.getElementsByClassName("list-locations")[0].classList.toggle("show");
-      }
+    this.closeMobileMenu();
     this.getPlaces(marker, lat, lng);
     // Fetch Foursquare Data
     fetch(`https://api.foursquare.com/v2/venues/search?client_id=4JHXDI1WSAPJJDMNWR3AZHMFZHAVJBBAW3MT3G45US5KXVQS&client_secret=HSVBUXRQSKYB30IJL510PXHA11QOOFTHPHNR1SNSAWO53WJX&v=20180814&ll=${lat},${lng}`)
@@ -147,6 +151,7 @@ class App extends Component {
 
   filterCounty = e => {
     // Filter location list items by county
+    this.closeMobileMenu();
     const locations = this.state.locations;
     const county = e.target.value;
     this.stopAnimation();

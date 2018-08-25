@@ -77,7 +77,6 @@ class App extends Component {
   }
 
   fetchParkData = (props, marker) => {
-    if (marker === this.state.activeMarker) return;
     const lat = marker.getPosition().lat();
     const lng = marker.getPosition().lng();
     this.stopAnimation();

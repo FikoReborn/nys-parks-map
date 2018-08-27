@@ -162,25 +162,15 @@ body {
 }
 
 .parkdata-text {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 998;
-  color: white;
-  margin: 0;
-  letter-spacing: initial;
-  text-transform: none;
-  float: right;
-  background-color: black;
-  border-bottom-left-radius: 10px;
-  padding-left: 10px;
-  text-transform: uppercase;
-  letter-spacing: 5px;
+  color: #000;
+  background-color: white;
   font-weight: 600;
+  text-align: center;
+  margin: 0;
 }
 
 .parkdata-text a {
-  color: #c9c8c8;
+  color: #444444;
   text-decoration: none;
 }
 

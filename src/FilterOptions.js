@@ -49,6 +49,7 @@ class FilterOptions extends Component {
         ) : (
             <p>Sorry, parks data could not be loaded.</p>
           )}
+          <p className="parkdata-text">Data from <a href="https://data.ny.gov/" target="_blank" rel="noopener noreferrer">Open NY</a> </p>
       </div>
     );
   };

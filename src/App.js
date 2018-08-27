@@ -17,6 +17,7 @@ class App extends Component {
   };
 
   fixMapBounds = () => {
+    // Extend bounds and make visible markers fit current bounds
     const bounds = new window.google.maps.LatLngBounds();
     const locations = this.state.locations;
     const map = this.state.map;
@@ -38,6 +39,7 @@ class App extends Component {
     fetch("https://data.ny.gov/api/views/9uuk-x7vh/rows.json")
       .then(response => response.json())
       .then(parkdata => {
+        // Set park data to be pushed to locations state
         parkdata.data.forEach(parkinfo => {
           let park = {
             id: parkinfo[0],
@@ -81,6 +83,7 @@ class App extends Component {
     const lng = marker.getPosition().lng();
     this.stopAnimation();
     marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    // Clear location information for infowindow
     this.setState({
       placesData: {},
       foursquareData: {},
@@ -129,6 +132,7 @@ class App extends Component {
         this.setState({ foursquareData: errorMessage });
       })
       .then(() => {
+        // Center selected marker on viewport and show infowindow
         this.state.map.setCenter(marker.getPosition());
         this.setState({
             activeMarker: marker,

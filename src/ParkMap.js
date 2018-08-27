@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ParkContent from "./ParkContent";
 import { GoogleApiWrapper, Map, Marker, InfoWindow } from "google-maps-react";
-import { styles } from "./MapStyles";
 import "./App.css";
 
 class ParkMap extends Component {
@@ -35,8 +34,7 @@ class ParkMap extends Component {
         >
           {locations.filter(filteredpark => filteredpark.display).map(park => (
             <Marker
-            icon={"http://maps.google.com/mapfiles/ms/micons/tree.png"}
-            animation={window.google.maps.Animation.DROP}
+              icon={"http://maps.google.com/mapfiles/ms/micons/tree.png"}
               ref={pullMarkers}
               key={park.id}
               id={park.id}

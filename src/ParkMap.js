@@ -47,7 +47,7 @@ class ParkMap extends Component {
               onClick={fetchParkData}
             />
           ))}
-          <InfoWindow role="dialog" marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
+          <InfoWindow marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
             <ParkContent
               activeMarker={activeMarker}
               foursquareData={foursquareData}

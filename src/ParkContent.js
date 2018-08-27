@@ -7,7 +7,7 @@ function ParkContent(props) {
     const { activeMarker, foursquareData, placesData } = props;
     return (
       <div className="infowindow">
-        <h3>
+        <h3 id="park-title">
           {activeMarker.title} {activeMarker.type}
         </h3>
         {placesData.address ? (

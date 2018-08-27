@@ -24,14 +24,17 @@ body {
   height: 8%;
   width: 100%;
   background-color: #3b3b3b;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  margin: 0;
+  margin: 0 0 0 10px;
+  display: table;
 }
 
 .app-title h1 {
-  margin: 10px;
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #fff;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .map-container {
@@ -193,7 +196,7 @@ body {
   max-width: 200px;
 }
 
-@media screen and (max-width: 660px) {
+@media screen and (max-width: 768px) {
   .menu-icon {
     visibility: visible;
   }
@@ -209,10 +212,40 @@ body {
   }
 
   .app-title {
-    font-size: 0.5em;
+    letter-spacing: 2px;
   }
 
   .list-locations {
     visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .app-title h1 {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 515px) {
+  .app-title h1 {
+    font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .app-title h1 {
+    font-size: 1.2em;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .app-title h1 {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .app-title h1 {
+    letter-spacing: initial;
   }
 }

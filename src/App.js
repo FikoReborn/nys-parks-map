@@ -89,9 +89,11 @@ class App extends Component {
   closeMobileMenu = () => {
     const filterMenu = document.getElementsByClassName('filter-options-container')[0];
     const locationsList = document.getElementsByClassName('list-locations')[0];
+    const dataLink = document.getElementsByClassName('parkdata-text')[0];
     if (filterMenu.classList.contains("extend")) {
       filterMenu.classList.toggle("extend");
       locationsList.classList.toggle("show");
+      dataLink.classList.toggle('show');
     }
     this.onResize();
   }

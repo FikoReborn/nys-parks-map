@@ -170,7 +170,7 @@ body {
   transform: translateX(0);
 }
 
-.list-locations.show {
+.list-locations.show, .parkdata-text.show {
   visibility: visible;
 }
 
@@ -202,6 +202,10 @@ body {
   }
 
   .list-locations {
+    visibility: hidden;
+  }
+
+  .parkdata-text {
     visibility: hidden;
   }
 }

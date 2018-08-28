@@ -15,9 +15,11 @@ class FilterOptions extends Component {
   menuOpen = () => {
     const filterDiv = document.getElementsByClassName('filter-options-container')[0];
     const locationsList = document.getElementsByClassName('list-locations')[0];
+    const dataLink = document.getElementsByClassName('parkdata-text')[0];
     const body = document.body;
     filterDiv.classList.toggle("extend");
     locationsList.classList.toggle("show");
+    dataLink.classList.toggle('show');
     body.classList.toggle('noscroll');
   }
 

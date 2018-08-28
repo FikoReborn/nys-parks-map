@@ -13,8 +13,12 @@ class FilterOptions extends Component {
   };
 
   menuOpen = () => {
-    document.getElementsByClassName('filter-options-container')[0].classList.toggle("extend");
-    document.getElementsByClassName('list-locations')[0].classList.toggle("show");
+    const filterDiv = document.getElementsByClassName('filter-options-container')[0];
+    const locationsList = document.getElementsByClassName('list-locations')[0];
+    const body = document.body;
+    filterDiv.classList.toggle("extend");
+    locationsList.classList.toggle("show");
+    body.classList.toggle('noscroll');
   }
 
   render() {

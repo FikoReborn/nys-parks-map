@@ -87,10 +87,13 @@ class App extends Component {
   }
 
   closeMobileMenu = () => {
-    if (document.getElementsByClassName("filter-options-container")[0].classList.contains("extend")) {
-      document.getElementsByClassName("filter-options-container")[0].classList.toggle("extend");
-      document.getElementsByClassName("list-locations")[0].classList.toggle("show");
+    const filterMenu = document.getElementsByClassName('filter-options-container')[0];
+    const locationsList = document.getElementsByClassName('list-locations')[0];
+    if (filterMenu.classList.contains("extend")) {
+      filterMenu.classList.toggle("extend");
+      locationsList.classList.toggle("show");
     }
+    this.onResize();
   }
 
   fetchParkData = (props, marker) => {

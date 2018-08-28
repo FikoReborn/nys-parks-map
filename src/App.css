@@ -170,7 +170,7 @@ body {
   transform: translateX(0);
 }
 
-.list-locations.show, .parkdata-text.show {
+.filter-content.show {
   visibility: visible;
 }
 
@@ -201,11 +201,7 @@ body {
     letter-spacing: 2px;
   }
 
-  .list-locations {
-    visibility: hidden;
-  }
-
-  .parkdata-text {
+  .filter-content {
     visibility: hidden;
   }
 }

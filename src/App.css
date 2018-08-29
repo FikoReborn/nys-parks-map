@@ -191,6 +191,7 @@ body {
     width: 180px;
     transform: translateX(-80%);
     z-index: 998;
+    transition: transform 0.3s;
   }
 
   .map-container {

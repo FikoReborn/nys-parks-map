@@ -15,7 +15,6 @@ class FilterOptions extends Component {
   menuOpen = () => {
     const filterDiv = document.getElementsByClassName("filter-options-container")[0];
     const filterContent = document.getElementsByClassName('filter-content')[0];
-    const body = document.body;
     filterDiv.classList.toggle("extend");
     filterContent.classList.toggle("show");
   };

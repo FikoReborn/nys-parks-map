@@ -18,7 +18,6 @@ class FilterOptions extends Component {
     const body = document.body;
     filterDiv.classList.toggle("extend");
     filterContent.classList.toggle("show");
-    body.classList.toggle("noscroll");
   };
 
   render() {

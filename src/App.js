@@ -16,21 +16,6 @@ class App extends Component {
     markerVisible: false
   };
 
-  componentDidMount = () => {
-    this.onResize();
-    window.addEventListener("resize", this.onResize);
-  }
-
-  onResize = () => {
-    const rect = document.getElementsByClassName('filter-options-container')[0].getBoundingClientRect();
-    if (rect.left < 0) {
-      window.scrollTo(0,0);
-      document.body.classList.add('noscroll');
-    } else {
-      document.body.classList.remove('noscroll');
-    }
-  }
-
   fixMapBounds = () => {
     // Extend bounds and make visible markers fit current bounds
     const bounds = new window.google.maps.LatLngBounds();
@@ -93,7 +78,6 @@ class App extends Component {
       filterMenu.classList.toggle("extend");
       filterContent.classList.toggle("show");
     }
-    this.onResize();
   }
 
   fetchParkData = (props, marker) => {

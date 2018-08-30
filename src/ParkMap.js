@@ -33,7 +33,6 @@ class ParkMap extends Component {
         >
           {locations.map(park => (
             <Marker
-              icon={"http://maps.google.com/mapfiles/ms/micons/tree.png"}
               ref={pullMarkers}
               key={park.id}
               id={park.id}

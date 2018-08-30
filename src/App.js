@@ -18,7 +18,6 @@ class App extends Component {
   fixMapBounds = () => {
     // Extend bounds and make visible markers fit current bounds
     const bounds = new window.google.maps.LatLngBounds();
-    const locations = this.state.locations;
     const markers = this.state.markers;
     const map = this.map;
     markers
@@ -201,20 +200,16 @@ class App extends Component {
           <h1>New York State Parks Map</h1>
         </div>
         <FilterOptions
-          stopAnimation={this.stopAnimation}
           markers={this.state.markers}
           error={this.state.error}
           counties={this.state.counties}
-          locations={this.state.locations}
           fetchParkData={this.fetchParkData}
           filterCounty={this.filterCounty}
         />
         <ParkMap
-          fixMapBounds={this.fixMapBounds}
           findMap={this.findMap}
           fetchParkData={this.fetchParkData}
           fetchParks={this.fetchParks}
-          getPlaces={this.getPlaces}
           stopAnimation={this.stopAnimation}
           pullMarkers={this.pullMarkers}
           locations={this.state.locations}

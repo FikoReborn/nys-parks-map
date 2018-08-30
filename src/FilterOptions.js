@@ -20,7 +20,7 @@ class FilterOptions extends Component {
   };
 
   render() {
-    const { counties, locations, filterCounty, error, markers } = this.props;
+    const { counties, filterCounty, error, markers } = this.props;
     return (
       <div className="filter-options-container">
         <span className="mobile-menu" onClick={this.menuOpen}>

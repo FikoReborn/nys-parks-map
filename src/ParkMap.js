@@ -33,6 +33,7 @@ class ParkMap extends Component {
         >
           {locations.map(park => (
             <Marker
+              animation={window.google.maps.Animation.DROP}
               ref={pullMarkers}
               key={park.id}
               id={park.id}
@@ -41,7 +42,6 @@ class ParkMap extends Component {
               position={park.location}
               website={park.website}
               county={park.county}
-              visibility={false}
               onClick={fetchParkData}
             />
           ))}

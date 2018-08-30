@@ -31,7 +31,7 @@ class ParkMap extends Component {
           mapTypeControl={false}
           onReady={fetchParks}
         >
-          {locations.filter(filteredpark => filteredpark.display).map(park => (
+          {locations.map(park => (
             <Marker
               icon={"http://maps.google.com/mapfiles/ms/micons/tree.png"}
               ref={pullMarkers}

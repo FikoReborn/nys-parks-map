@@ -6,7 +6,6 @@ import "./App.css";
 class App extends Component {
   state = {
     error: false,
-    map: {},
     locations: [],
     counties: [],
     markers: [],
@@ -20,17 +19,18 @@ class App extends Component {
     // Extend bounds and make visible markers fit current bounds
     const bounds = new window.google.maps.LatLngBounds();
     const locations = this.state.locations;
-    const map = this.state.map;
-    locations
-      .filter(filteredlocations => filteredlocations.display)
-      .forEach(location => {
-        bounds.extend(location.location);
+    const markers = this.state.markers;
+    const map = this.map;
+    markers
+      .filter(filteredmarkers => filteredmarkers.map !== null)
+      .forEach(marker => {
+        bounds.extend(marker.getPosition());
       });
     map.fitBounds(bounds);
   }
 
   findMap = map => {
-    this.setState({ map });
+    this.map = map;
   };
 
   fetchParks = () => {
@@ -135,7 +135,7 @@ class App extends Component {
       })
       .then(() => {
         // Center selected marker on viewport and show infowindow
-        this.state.map.setCenter(marker.getPosition());
+        this.map.setCenter(marker.getPosition());
         this.setState({
             activeMarker: marker,
             markerVisible: true
@@ -166,18 +166,18 @@ class App extends Component {
 
   filterCounty = e => {
     // Filter location list items by county
-    this.closeMobileMenu();
     const locations = this.state.locations;
     const county = e.target.value;
+    const markers = this.state.markers;
+    this.closeMobileMenu();
     this.stopAnimation();
-    locations.forEach(location => {
-      location.display = false;
-      if (location.county !== county && county !== "All Counties") {
-        location.display = false;
+    markers.forEach(marker => {
+      if (marker.county !== county && county !== "All Counties") {
+        marker.setMap(null);
       } else {
-        location.display = true;
+        marker.setMap(this.map);
       }
-    });
+    })
     this.setState({ 
         locations,
         markerVisible: false

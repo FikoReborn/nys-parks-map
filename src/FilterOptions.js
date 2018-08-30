@@ -20,7 +20,7 @@ class FilterOptions extends Component {
   };
 
   render() {
-    const { counties, locations, filterCounty, error } = this.props;
+    const { counties, locations, filterCounty, error, markers } = this.props;
     return (
       <div className="filter-options-container">
         <span className="mobile-menu" onClick={this.menuOpen}>
@@ -37,16 +37,16 @@ class FilterOptions extends Component {
         <div className="filter-content">
           {!error ? (
             <ul className="list-locations">
-              {locations.map(
-                thislocation =>
-                  thislocation.display && (
-                    <li key={thislocation.id}>
+              {markers.map(
+                marker =>
+                  marker.map !== null && (
+                    <li key={marker.id}>
                       <button
                         onClick={this.selectMarker}
-                        id={thislocation.id}
+                        id={marker.id}
                         className="location-button"
                       >
-                        {thislocation.title} {thislocation.type}
+                        {marker.title} {marker.type}
                       </button>
                     </li>
                   )

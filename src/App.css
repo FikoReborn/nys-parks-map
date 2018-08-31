@@ -48,10 +48,11 @@ body {
   height: 92%;
 }
 
-.map {
+.map-container .map {
   width: 100%;
   height: 100%;
 }
+
 /* ********** */
 /* Infowindow */
 /* ********** */
@@ -60,44 +61,57 @@ body {
   max-width: 200px;
 }
 
-.address a {
+.infowindow .address a {
   color: #ff0000;
   text-decoration: none;
   font-weight: 600;
 }
 
-.address a:hover {
+.infowindow .address a:hover {
   color: #5535a1;
 }
 
-.rating a {
+.infowindow .rating a {
   text-decoration: none;
   color: #000000;
   font-weight: 600;
 }
 
-.fa-foursquare {
+.infowindow .fa-foursquare {
   color: fuchsia;
   letter-spacing: 5px;
   font-size: 18px;
 }
 
-.icons {
+.infowindow .icons {
   letter-spacing: 12px;
   font-size: 22px;
 }
 
-.icons a {
+.infowindow .icons a {
   color: #913c3c;
 }
 
-.icons a:hover {
+.infowindow .icons a:hover {
   color: #3c6b91;
+}
+
+.infowindow .foursquare-logo {
+  position: relative;
+  left: -10px;
+  width: 150px;
 }
 
 /* ************************ */
 /* Filter-options Component */
 /* ************************ */
+
+.menu-icon {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  visibility: hidden;
+}
 
 .filter-options-container {
   background-color: #3b3b3b;
@@ -109,39 +123,47 @@ body {
   top: 8%;
 }
 
-.filter-options-container .list-locations {
+.filter-options-container.extend {
+  transform: translateX(0);
+}
+
+.filter-options-container .filter-form {
   padding-left: 15px;
 }
 
-.filter-options-container .list-locations li {
-  padding-bottom: 10px;
-  list-style: none;
-}
-
-.filter-options-container .list-locations li a {
-  text-decoration: none;
-  color: #b13232;
-}
-
-.filter-options-container .list-locations li a:hover {
-  color: #ff0000;
-}
-
-.filter-form {
-  padding-left: 15px;
-}
-
-.filter-counties-list {
+.filter-form .filter-counties-list {
   background-color: #fffad1;
   border: 2px solid #000;
   border-radius: 15px;
   padding: 8px;
 }
 
-.filter-counties-list:focus {
+.filter-form .filter-counties-list:focus {
   background-color: #fff;
   outline: none;
   color: #000;
+}
+
+.filter-content.show {
+  display: block;
+}
+
+.filter-content .list-locations {
+  padding-left: 15px;
+}
+
+.filter-content .list-locations li {
+  padding-bottom: 10px;
+  list-style: none;
+}
+
+.filter-content .list-locations li a {
+  text-decoration: none;
+  color: #b13232;
+}
+
+.filter-content .list-locations li a:hover {
+  color: #ff0000;
 }
 
 .list-locations .location-button {
@@ -162,20 +184,7 @@ body {
   color: rgb(93, 104, 255);
 }
 
-.menu-icon {
-  position: absolute;
-  right: 5px;
-  top: 3px;
-  visibility: hidden;
-}
-
-.foursquare-logo {
-  position: relative;
-  left: -10px;
-  width: 150px;
-}
-
-.parkdata-text {
+.filter-content .parkdata-text {
   color: #000;
   background-color: white;
   font-weight: 600;
@@ -183,17 +192,9 @@ body {
   margin: 0;
 }
 
-.parkdata-text a {
+.filter-content .parkdata-text a {
   color: #444444;
   text-decoration: none;
-}
-
-.filter-options-container.extend {
-  transform: translateX(0);
-}
-
-.filter-content.show {
-  display: block;
 }
 
 @media screen and (max-width: 768px) {

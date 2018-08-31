@@ -33,7 +33,7 @@ The app will now be available by navigating to `http://localhost:5000`.
 
 Upon loading, all markers for New York State Park locations should be visible on the map. By clicking on a specific marker, it will pull up an info window showing basic park information, as well as information puled from the [Foursquare API](https://developer.foursquare.com/). 
 
-On the left hand side of the page is a list of currently displayed locations as well as a drop-down menu that will allow you to filter the displayed locations on the map by county.  Click on any county, and it will update the locations shown on the map, as well as the locations on the list below.  Clicking on any location on the list will also pull up its respective info window. 
+On the left hand side of the page(or by clicking the hamburger icon on mobile) is a list of currently displayed locations as well as a drop-down menu that will allow you to filter the displayed locations on the map by county.  Click on any county, and it will update the locations shown on the map, as well as the locations on the list below.  Clicking on any location on the list will also pull up its respective info window. 
 
 ## Credit
 

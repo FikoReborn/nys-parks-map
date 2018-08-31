@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import "font-awesome/css/font-awesome.min.css";
-import "./App.css";
+import React, { Component } from 'react';
+import 'font-awesome/css/font-awesome.min.css';
+import './App.css';
 
 class FilterOptions extends Component {
   selectMarker = e => {
@@ -13,10 +13,12 @@ class FilterOptions extends Component {
   };
 
   menuOpen = () => {
-    const filterDiv = document.getElementsByClassName("filter-options-container")[0];
+    const filterDiv = document.getElementsByClassName(
+      'filter-options-container'
+    )[0];
     const filterContent = document.getElementsByClassName('filter-content')[0];
-    filterDiv.classList.toggle("extend");
-    filterContent.classList.toggle("show");
+    filterDiv.classList.toggle('extend');
+    filterContent.classList.toggle('show');
   };
 
   render() {
@@ -55,7 +57,16 @@ class FilterOptions extends Component {
           ) : (
             <p>Sorry, parks data could not be loaded.</p>
           )}
-          <p className="parkdata-text">Data from <a href="https://data.ny.gov/" target="_blank" rel="noopener noreferrer">Open NY</a></p>
+          <p className="parkdata-text">
+            Data from{' '}
+            <a
+              href="https://data.ny.gov/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open NY
+            </a>
+          </p>
         </div>
       </div>
     );

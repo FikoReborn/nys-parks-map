@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import ParkContent from "./ParkContent";
-import { GoogleApiWrapper, Map, Marker, InfoWindow } from "google-maps-react";
-import "./App.css";
+import React, { Component } from 'react';
+import ParkContent from './ParkContent';
+import { GoogleApiWrapper, Map, Marker, InfoWindow } from 'google-maps-react';
+import './App.css';
 
 class ParkMap extends Component {
   componentDidMount = () => {
@@ -45,7 +45,11 @@ class ParkMap extends Component {
               onClick={fetchParkData}
             />
           ))}
-          <InfoWindow marker={activeMarker} visible={markerVisible} onClose={stopAnimation}>
+          <InfoWindow
+            marker={activeMarker}
+            visible={markerVisible}
+            onClose={stopAnimation}
+          >
             <ParkContent
               activeMarker={activeMarker}
               foursquareData={foursquareData}
@@ -59,5 +63,5 @@ class ParkMap extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCGnAvu4__n-bl-rsNch6sLTHksCDbWJGg"
+  apiKey: 'AIzaSyCGnAvu4__n-bl-rsNch6sLTHksCDbWJGg'
 })(ParkMap);

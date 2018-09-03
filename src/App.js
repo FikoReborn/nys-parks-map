@@ -18,11 +18,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
+    // Store current online status when mounted
     this.setState({
       loadedOnline: this.props.isOnline
     });
   }
   componentDidUpdate = () => {
+    // In offline mode, reload page when connection is re-established
     const isOnline = this.props.isOnline;
     const loadedOnline = this.state.loadedOnline;
     if (isOnline && !loadedOnline) {

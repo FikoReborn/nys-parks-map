@@ -5,10 +5,11 @@ import './App.css';
 
 class ParkMap extends Component {
   componentDidMount = () => {
-    this.props.findMap(this.refs.map.map);
+    this.props.isOnline && this.props.findMap(this.refs.map.map);
     window.gm_authFailure = () => {
       console.log('auth fail');
     }
+    console.log(this.props.isOnline)
   };
 
   render() {
@@ -21,12 +22,19 @@ class ParkMap extends Component {
       foursquareData,
       placesData,
       fetchParks,
-      fetchParkData
+      fetchParkData,
+      isOnline,
+      loadedOnline
     } = this.props;
 
     return (
       <div className="map-container">
-        <Map
+        {!isOnline && (
+          <div className="map-error">
+            <span className="over-map-error"><p>You appear to be offline. Maps may not respond as intended.</p></span>
+          </div>
+        )}
+          <Map
           role="application"
           ref="map"
           className="map"

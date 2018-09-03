@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ParkMap from './ParkMap';
 import FilterOptions from './FilterOptions';
+import withOfflineState from 'react-offline-hoc';
 import './App.css';
 
 class App extends Component {
@@ -12,8 +13,16 @@ class App extends Component {
     foursquareData: {},
     activeMarker: {},
     placesData: {},
-    markerVisible: false
+    markerVisible: false,
+    isOnline: this.props.isOnline,
+    loadedOnline: true
   };
+
+  componentDidMount = () => {
+    this.setState({
+      loadedOnline: this.props.isOnline
+    })
+  }
 
   fixMapBounds = () => {
     // Extend bounds and make visible markers fit current bounds
@@ -224,8 +233,17 @@ class App extends Component {
           counties={this.state.counties}
           fetchParkData={this.fetchParkData}
           filterCounty={this.filterCounty}
+          isOnline={this.props.isOnline}
         />
-        <ParkMap
+        {!this.state.loadedOnline ? (
+          <div className="map-container">
+            <div className="map-error">
+              <p>You appear to be offline. Please check your connection.</p>
+              <p>Unable to load maps.</p>
+            </div>
+          </div>
+        ) : (
+          <ParkMap
           findMap={this.findMap}
           fetchParkData={this.fetchParkData}
           fetchParks={this.fetchParks}
@@ -236,10 +254,13 @@ class App extends Component {
           activeMarker={this.state.activeMarker}
           placesData={this.state.placesData}
           markerVisible={this.state.markerVisible}
+          isOnline={this.props.isOnline}
+          loadedOnline={this.state.loadedOnline}
         />
+        )}
       </div>
     );
   }
 }
 
-export default App;
+export default withOfflineState(App);

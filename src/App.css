@@ -52,11 +52,33 @@ body {
   top: 8%;
   width: 80%;
   height: 92%;
+  color: #000;
+  background-color: #fff;
 }
 
 .map-container .map {
   width: 100%;
   height: 100%;
+}
+
+.map-container .map-error {
+  text-align: center;
+  width: 100%;
+  color: #ff0000;
+  font-weight: 600;
+}
+
+.map-container .map-error .over-map-error {
+  display: block;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  z-index: 3000;
+  padding-left: 5px;
+  padding-right: 10px;
+  border-bottom-right-radius: 15px;
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000; 
 }
 
 /* ********** */
@@ -226,11 +248,17 @@ body {
   .filter-content {
     display: none;
   }
+  .map-container .map-error .over-map-error {
+    left: 35px;
+  }
 }
 
 @media screen and (max-width: 615px) {
   .app-title h1 {
     font-size: 1.5em;
+  }
+  .map-container .map-error {
+    font-size: 0.8em;
   }
 }
 
@@ -238,11 +266,18 @@ body {
   .app-title h1 {
     font-size: 1.3em;
   }
+  .map-container .map-error {
+    font-size: 0.8em;
+  }
 }
 
 @media screen and (max-width: 470px) {
   .app-title h1 {
     font-size: 1.2em;
+  }
+
+  .map-container .map-error {
+    font-size: 0.7em;
   }
 }
 
@@ -250,10 +285,15 @@ body {
   .app-title h1 {
     font-size: 1em;
   }
+
 }
 
 @media screen and (max-width: 380px) {
   .app-title h1 {
     letter-spacing: initial;
+  }
+
+  .map-container .map-error {
+    font-size: 0.6em;
   }
 }

@@ -14,14 +14,25 @@ class App extends Component {
     activeMarker: {},
     placesData: {},
     markerVisible: false,
-    loadedOnline: true
+    loadedOnline: true,
+    gMapsAuthFailed: false,
+    mapsErrorText: null
   };
 
   componentDidMount = () => {
     // Store current online status when mounted
     this.setState({
-      loadedOnline: this.props.isOnline
+      loadedOnline: this.props.isOnline,
+      mapsErrorText: 'You appear to be offline. Please check your connection.'
     });
+    // Generate error message if there is a problem with Google Maps API token
+    window.gm_authFailure = () => {
+      this.setState({
+        gMapsAuthFailed: true,
+        error: true,
+        mapsErrorText: 'Authentication error while trying to load token.'
+      })
+    }
   }
   componentDidUpdate = () => {
     // In offline mode, reload page when connection is re-established
@@ -243,10 +254,10 @@ class App extends Component {
           filterCounty={this.filterCounty}
           loadedOnline={this.state.loadedOnline}
         />
-        {!this.state.loadedOnline ? (
+        {(!this.state.loadedOnline || this.state.gMapsAuthFailed) ? (
           <div className="map-container">
             <div className="map-error">
-              <p>You appear to be offline. Please check your connection.</p>
+              <p>{this.state.mapsErrorText}</p>
               <p>Unable to load maps.</p>
             </div>
           </div>

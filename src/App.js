@@ -14,7 +14,6 @@ class App extends Component {
     activeMarker: {},
     placesData: {},
     markerVisible: false,
-    isOnline: this.props.isOnline,
     loadedOnline: true
   };
 
@@ -22,6 +21,13 @@ class App extends Component {
     this.setState({
       loadedOnline: this.props.isOnline
     });
+  }
+  componentDidUpdate = () => {
+    const isOnline = this.props.isOnline;
+    const loadedOnline = this.state.loadedOnline;
+    if (isOnline && !loadedOnline) {
+      window.location.reload();
+    }
   }
 
   fixMapBounds = () => {
@@ -255,7 +261,6 @@ class App extends Component {
           placesData={this.state.placesData}
           markerVisible={this.state.markerVisible}
           isOnline={this.props.isOnline}
-          loadedOnline={this.state.loadedOnline}
         />
         )}
       </div>

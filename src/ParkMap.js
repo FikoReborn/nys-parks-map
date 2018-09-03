@@ -9,7 +9,6 @@ class ParkMap extends Component {
     window.gm_authFailure = () => {
       console.log('auth fail');
     }
-    console.log(this.props.isOnline)
   };
 
   render() {
@@ -23,8 +22,7 @@ class ParkMap extends Component {
       placesData,
       fetchParks,
       fetchParkData,
-      isOnline,
-      loadedOnline
+      isOnline
     } = this.props;
 
     return (

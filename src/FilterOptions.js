@@ -29,7 +29,7 @@ class FilterOptions extends Component {
           <i className="fa fa-2x fa-bars menu-icon" />
         </span>
         <div className="filter-form">
-          <select className="filter-counties-list" onChange={filterCounty}>
+          <select className="filter-counties-list" onChange={filterCounty} aria-label="Filter Locations by County">
             <option>All Counties</option>
             {counties.map(county => (
               <option key={county}>{county}</option>

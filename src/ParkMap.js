@@ -6,6 +6,9 @@ import './App.css';
 class ParkMap extends Component {
   componentDidMount = () => {
     this.props.findMap(this.refs.map.map);
+    window.gm_authFailure = () => {
+      console.log('auth fail');
+    }
   };
 
   render() {

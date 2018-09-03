@@ -78,7 +78,7 @@ body {
   padding-right: 10px;
   border-bottom-right-radius: 15px;
   border-bottom: 1px solid #000;
-  border-right: 1px solid #000; 
+  border-right: 1px solid #000;
 }
 
 /* ********** */
@@ -285,7 +285,6 @@ body {
   .app-title h1 {
     font-size: 1em;
   }
-
 }
 
 @media screen and (max-width: 380px) {

@@ -26,10 +26,12 @@ class ParkMap extends Component {
       <div className="map-container">
         {!isOnline && (
           <div className="map-error">
-            <span className="over-map-error"><p>You appear to be offline. Maps may not respond as intended.</p></span>
+            <span className="over-map-error">
+              <p>You appear to be offline. Maps may not respond as intended.</p>
+            </span>
           </div>
         )}
-          <Map
+        <Map
           role="application"
           ref="map"
           className="map"

@@ -31,9 +31,9 @@ class App extends Component {
         gMapsAuthFailed: true,
         error: true,
         mapsErrorText: 'Authentication error while trying to load token.'
-      })
-    }
-  }
+      });
+    };
+  };
   componentDidUpdate = () => {
     // In offline mode, reload page when connection is re-established
     const isOnline = this.props.isOnline;
@@ -41,7 +41,7 @@ class App extends Component {
     if (isOnline && !loadedOnline) {
       window.location.reload();
     }
-  }
+  };
 
   fixMapBounds = () => {
     // Extend bounds and make visible markers fit current bounds
@@ -241,6 +241,7 @@ class App extends Component {
   };
 
   render() {
+    const { loadedOnline, gMapsAuthFailed, mapsErrorText } = this.state;
     return (
       <div className="App">
         <div className="app-title">
@@ -254,27 +255,27 @@ class App extends Component {
           filterCounty={this.filterCounty}
           loadedOnline={this.state.loadedOnline}
         />
-        {(!this.state.loadedOnline || this.state.gMapsAuthFailed) ? (
+        {!loadedOnline || gMapsAuthFailed ? (
           <div className="map-container">
             <div className="map-error">
-              <p>{this.state.mapsErrorText}</p>
+              <p>{mapsErrorText}</p>
               <p>Unable to load maps.</p>
             </div>
           </div>
         ) : (
           <ParkMap
-          findMap={this.findMap}
-          fetchParkData={this.fetchParkData}
-          fetchParks={this.fetchParks}
-          stopAnimation={this.stopAnimation}
-          pullMarkers={this.pullMarkers}
-          locations={this.state.locations}
-          foursquareData={this.state.foursquareData}
-          activeMarker={this.state.activeMarker}
-          placesData={this.state.placesData}
-          markerVisible={this.state.markerVisible}
-          isOnline={this.props.isOnline}
-        />
+            findMap={this.findMap}
+            fetchParkData={this.fetchParkData}
+            fetchParks={this.fetchParks}
+            stopAnimation={this.stopAnimation}
+            pullMarkers={this.pullMarkers}
+            locations={this.state.locations}
+            foursquareData={this.state.foursquareData}
+            activeMarker={this.state.activeMarker}
+            placesData={this.state.placesData}
+            markerVisible={this.state.markerVisible}
+            isOnline={this.props.isOnline}
+          />
         )}
       </div>
     );

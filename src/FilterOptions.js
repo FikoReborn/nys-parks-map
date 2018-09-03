@@ -37,7 +37,7 @@ class FilterOptions extends Component {
           </select>
         </div>
         <div className="filter-content">
-          {(!error && loadedOnline) ? (
+          {!error && loadedOnline ? (
             <ul className="list-locations">
               {markers.map(
                 marker =>

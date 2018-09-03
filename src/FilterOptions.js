@@ -22,7 +22,7 @@ class FilterOptions extends Component {
   };
 
   render() {
-    const { counties, filterCounty, error, markers } = this.props;
+    const { counties, filterCounty, error, markers, loadedOnline } = this.props;
     return (
       <div className="filter-options-container">
         <span className="mobile-menu" onClick={this.menuOpen}>
@@ -37,7 +37,7 @@ class FilterOptions extends Component {
           </select>
         </div>
         <div className="filter-content">
-          {!error ? (
+          {(!error && loadedOnline) ? (
             <ul className="list-locations">
               {markers.map(
                 marker =>

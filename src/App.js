@@ -21,7 +21,7 @@ class App extends Component {
   componentDidMount = () => {
     this.setState({
       loadedOnline: this.props.isOnline
-    })
+    });
   }
 
   fixMapBounds = () => {
@@ -233,7 +233,7 @@ class App extends Component {
           counties={this.state.counties}
           fetchParkData={this.fetchParkData}
           filterCounty={this.filterCounty}
-          isOnline={this.props.isOnline}
+          loadedOnline={this.state.loadedOnline}
         />
         {!this.state.loadedOnline ? (
           <div className="map-container">

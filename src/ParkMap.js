@@ -23,7 +23,7 @@ class ParkMap extends Component {
     } = this.props;
 
     return (
-      <div className="map-container">
+      <section className="map-container">
         {!isOnline && (
           <div className="map-error">
             <span className="over-map-error">
@@ -65,7 +65,7 @@ class ParkMap extends Component {
             />
           </InfoWindow>
         </Map>
-      </div>
+      </section>
     );
   }
 }

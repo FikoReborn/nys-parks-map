@@ -244,7 +244,7 @@ class App extends Component {
   render() {
     const { loadedOnline, gMapsAuthFailed, mapsErrorText } = this.state;
     return (
-      <div className="App">
+      <main className="App">
         <MapHeader />
         <FilterOptions
           markers={this.state.markers}
@@ -255,12 +255,12 @@ class App extends Component {
           loadedOnline={this.state.loadedOnline}
         />
         {!loadedOnline || gMapsAuthFailed ? (
-          <div className="map-container">
+          <section className="map-container">
             <div className="map-error">
               <p>{mapsErrorText}</p>
               <p>Unable to load maps.</p>
             </div>
-          </div>
+          </section>
         ) : (
           <ParkMap
             findMap={this.findMap}
@@ -276,7 +276,7 @@ class App extends Component {
             isOnline={this.props.isOnline}
           />
         )}
-      </div>
+      </main>
     );
   }
 }

@@ -6,7 +6,7 @@ import './App.css';
 function ParkContent(props) {
   const { activeMarker, foursquareData, placesData } = props;
   return (
-    <div className="infowindow">
+    <aside className="infowindow">
       <h3 id="park-title">
         {activeMarker.title} {activeMarker.type}
       </h3>
@@ -60,7 +60,7 @@ function ParkContent(props) {
           alt="Powered by Foursquare"
         />
       </a>
-    </div>
+    </aside>
   );
 }
 

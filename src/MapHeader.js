@@ -3,9 +3,9 @@ import './App.css';
 
 function MapHeader(props) {
   return (
-    <div className="app-title">
+    <header className="app-title">
       <h1>New York State Parks Map</h1>
-    </div>
+    </header>
   );
 }
 

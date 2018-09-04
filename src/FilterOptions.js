@@ -24,19 +24,19 @@ class FilterOptions extends Component {
   render() {
     const { counties, filterCounty, error, markers, loadedOnline } = this.props;
     return (
-      <div className="filter-options-container">
+      <nav className="filter-options-container">
         <span className="mobile-menu" onClick={this.menuOpen}>
           <i className="fa fa-2x fa-bars menu-icon" />
         </span>
-        <div className="filter-form">
+        <section className="filter-form" role="form">
           <select className="filter-counties-list" onChange={filterCounty} aria-label="Filter Locations by County">
             <option>All Counties</option>
             {counties.map(county => (
               <option key={county}>{county}</option>
             ))}
           </select>
-        </div>
-        <div className="filter-content">
+        </section>
+        <section className="filter-content">
           {!error && loadedOnline ? (
             <ul className="list-locations">
               {markers.map(
@@ -67,8 +67,8 @@ class FilterOptions extends Component {
               Open NY
             </a>
           </p>
-        </div>
-      </div>
+        </section>
+      </nav>
     );
   }
 }

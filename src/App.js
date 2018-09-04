@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ParkMap from './ParkMap';
+import MapHeader from './MapHeader';
 import FilterOptions from './FilterOptions';
+import ParkMap from './ParkMap';
 import withOfflineState from 'react-offline-hoc';
 import './App.css';
 
@@ -244,9 +245,7 @@ class App extends Component {
     const { loadedOnline, gMapsAuthFailed, mapsErrorText } = this.state;
     return (
       <div className="App">
-        <div className="app-title">
-          <h1>New York State Parks Map</h1>
-        </div>
+        <MapHeader />
         <FilterOptions
           markers={this.state.markers}
           error={this.state.error}

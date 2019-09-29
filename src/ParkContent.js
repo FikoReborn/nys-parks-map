@@ -48,7 +48,7 @@ function ParkContent(props) {
             </a>
           ))}
         {activeMarker.website && (
-          <a href={activeMarker.website} target="_blank">
+          <a href={activeMarker.website[0]} target="_blank">
             <i className="fa fa-globe" />
           </a>
         )}

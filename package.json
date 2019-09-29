@@ -1,5 +1,6 @@
 {
   "name": "nys-parks-map",
+  "homepage": "https://www.aduff.org/nys-parks-map",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -7,7 +7,7 @@ This is a project through the Udacity Front-end Nanodegree Program. This applica
 
 ## How to Run
 
-Either try the online version of the app, [here](http://www.aduff.org/nys-parks-map) or follow the instructions below:
+Either try the online version of the app, [here](https://fikoreborn.github.io/nys-parks-map) or follow the instructions below:
 
 **Development Mode**
 

@@ -73,7 +73,7 @@ class App extends Component {
             id: parkinfo[0],
             title: parkinfo[8],
             county: parkinfo[11],
-            website: parkinfo[17][0],
+            website: parkinfo[17],
             display: true,
             location: {
               lat: Number(parkinfo[21]),
